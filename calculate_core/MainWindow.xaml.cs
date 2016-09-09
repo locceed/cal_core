@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Threading;
 
 namespace calculate_core
 {
@@ -110,12 +111,12 @@ namespace calculate_core
         {
             try
             {
-                if (input.First().ToString().IndexOfAny("-*/".ToArray()) == -1)//统一格式
+                if (input.First().ToString().IndexOfAny("+-".ToArray()) == -1)//统一格式
                 {
                     input = "+" + input;
                 }
                 int x1 = 0;//计数
-                int opnum = 0;
+                int opnum = 0;//符号个数
                 while (x1 != -1)//符号个数
                 {
                     x1 = input.IndexOfAny("+-".ToArray(), x1 + 1);
@@ -189,7 +190,7 @@ namespace calculate_core
                             part_part_num[for2] = part_part[for2].Substring(1);
                         }
                         double part_result = Convert.ToDouble(part_part_num[0]);
-                        for (int for2 = 0; for2 <= part_part.Length - 1; for2++)//计算
+                        for (int for2 = 0; for2 <= part_part.Length - 1; for2++)//计算（部分）
                         {
                             switch (part_part_op[for2])
                             {
@@ -252,6 +253,10 @@ namespace calculate_core
             }
         }
         private void input_KeyUp(object sender, KeyEventArgs e)
+        {
+            output.Text = cal2(input.Text);
+        }
+        private void a()
         {
             output.Text = cal2(input.Text);
         }
