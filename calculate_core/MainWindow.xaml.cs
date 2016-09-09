@@ -106,10 +106,154 @@ namespace calculate_core
                 return "error";
             }
         }
-
-        private void button_Click(object sender, RoutedEventArgs e)
+        private string cal2(string input)//运算法则更新
         {
-            output.Text = cal1(input.Text);
+            try
+            {
+                if (input.First().ToString().IndexOfAny("-*/".ToArray()) == -1)//统一格式
+                {
+                    input = "+" + input;
+                }
+                int x1 = 0;//计数
+                int opnum = 0;
+                while (x1 != -1)//符号个数
+                {
+                    x1 = input.IndexOfAny("+-".ToArray(), x1 + 1);
+                    opnum++;
+                }
+                x1 = 0;//计数器归零
+                int[] oplocation = new int[opnum];
+                string[] part = new string[opnum];
+                for (int for1 = 0; for1 <= part.Length - 1; for1++)//符号位置
+                {
+                    x1 = input.IndexOfAny("+-".ToArray(), x1);
+                    oplocation[for1] = x1;
+                    x1++;
+                }
+                x1 = 0;//计数器归零
+                for (int for1 = 0; for1 <= part.Length - 1; for1++)//加减分割
+                {
+                    if (for1 >= oplocation.Length - 1)
+                    {
+                        part[for1] = input.Substring(oplocation[for1]);
+                    }
+                    else
+                    {
+                        part[for1] = input.Substring(oplocation[for1], oplocation[for1 + 1] - oplocation[for1]);
+                    }
+                }
+                string[] part_handled = new string[opnum];
+                ///////////////////////////////////////////////////////////////
+                for (int for1 = 0; for1 <= part.Length - 1; for1++)
+                {
+                    if (part[for1].IndexOfAny("*/".ToArray()) == -1)
+                    {
+                        part_handled[for1] = part[for1];
+                    }
+                    else
+                    {
+                        int part_opnum = 0;
+                        while (x1 != -1)//符号个数(部分)
+                        {
+                            x1 = part[for1].IndexOfAny("*/".ToArray(), x1 + 1);
+                            part_opnum++;
+                        }
+                        x1 = 0;//计数器归零
+                        int[] part_oplocation = new int[part_opnum];
+                        string[] part_part = new string[part_opnum];
+                        for (int for2 = 1; for2 <= part_oplocation.Length - 1; for2++)//符号位置(部分)
+                        {
+                            x1 = part[for1].IndexOfAny("*/".ToArray(), x1 + 1);
+                            if (x1 != -1)
+                            {
+                                part_oplocation[for2] = x1;
+                            }
+                        }
+                        x1 = 0;//计数器归零
+                        for (int for2 = 0; for2 <= part_oplocation.Length - 1; for2++)//四则分割(部分)
+                        {
+                            if (for2 == part_oplocation.Length - 1)
+                            {
+                                part_part[for2] = part[for1].Substring(part_oplocation[for2]);
+                            }
+                            else
+                            {
+                                part_part[for2] = part[for1].Substring(part_oplocation[for2], part_oplocation[for2 + 1] - part_oplocation[for2]);
+                            }
+                        }
+                        string[] part_part_op = new string[part_opnum];
+                        string[] part_part_num = new string[part_opnum];
+                        for (int for2 = 0; for2 <= part_part.Length - 1; for2++)//数符分割（部分）
+                        {
+                            part_part_op[for2] = part_part[for2].First().ToString();
+                            part_part_num[for2] = part_part[for2].Substring(1);
+                        }
+                        double part_result = Convert.ToDouble(part_part_num[0]);
+                        for (int for2 = 0; for2 <= part_part.Length - 1; for2++)//计算
+                        {
+                            switch (part_part_op[for2])
+                            {
+                                case ("*"):
+                                    {
+                                        part_result = part_result * Convert.ToDouble(part_part_num[for2]);
+                                        break;
+                                    }
+                                case ("/"):
+                                    {
+                                        part_result = part_result / Convert.ToDouble(part_part_num[for2]);
+                                        break;
+                                    }
+                            }
+                            part_handled[for1] = part[for1].First().ToString() + part_result.ToString();
+                        }
+                    }
+                }
+                ////////////////////////////////////////////////////////////////////////////////
+                string[] part_op = new string[part_handled.Length];
+                string[] part_num = new string[part_handled.Length];
+                for (int for1 = 0; for1 <= part_handled.Length - 1; for1++)
+                {
+                    part_op[for1] = part_handled[for1].First().ToString();
+                    part_num[for1] = part_handled[for1].Substring(1);
+                }
+                double result = 0;
+                for (int for1 = 0; for1 <= part_handled.Length - 1; for1++)
+                {
+                    switch (part_op[for1])
+                    {
+                        case ("+"):
+                            {
+                                result = result + Convert.ToDouble(part_num[for1]);
+                                break;
+                            }
+                        case ("-"):
+                            {
+                                result = result - Convert.ToDouble(part_num[for1]);
+                                break;
+                            }
+                    }
+                }
+                return result.ToString();
+                /////////////////////////////////////////////////////////////////////////////////
+                /*
+                output.Text = "";
+                for (int xx = 0; xx <= part_handled.Length - 1; xx++)
+                {
+                    output.Text = result.ToString();
+                    //output.Text = output.Text + "<" + part_num[xx].ToString() + ">";
+                }
+                */
+                //这是测试用的。
+            }
+            catch (Exception e)
+            {
+                //MessageBox.Show(e.ToString());
+                return "error";
+            }
+        }
+        private void input_KeyUp(object sender, KeyEventArgs e)
+        {
+            output.Text = cal2(input.Text);
         }
     }
 }
