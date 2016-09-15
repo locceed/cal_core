@@ -7,9 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <Button x:Name="button" Content="计算！" HorizontalAlignment="Left" Margin="215,245,0,0" VerticalAlignment="Top" Width="75"/>
-        <TextBox x:Name="input" HorizontalAlignment="Left" Height="100" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="497" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" KeyUp="input_KeyUp"/>
-        <TextBox x:Name="output" HorizontalAlignment="Left" Height="100" Margin="10,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="497" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"/>
+        <Button x:Name="button" Content="计算！" HorizontalAlignment="Left" Margin="215,245,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+        <TextBox x:Name="input" HorizontalAlignment="Left" Height="100" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="497" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" KeyUp="input_KeyUp" Text="-12+4351221*-2332/-546*436/-658+78"/>
+        <TextBox x:Name="output" HorizontalAlignment="Left" Height="100" Margin="10,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="497" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Text="-12+4351221*-2332/-546*436/-658+78"/>
+        <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="94,245,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
 
     </Grid>
 </Window>

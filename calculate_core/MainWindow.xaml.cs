@@ -24,6 +24,14 @@ namespace calculate_core
         public MainWindow()
         {
             InitializeComponent();
+            /*
+            output.Text = "";
+            for (int xx = 0; xx <= part_handled.Length - 1; xx++)
+            {
+               //output.Text = output.Text + "<" + part_num[xx].ToString() + ">";
+            }
+            */
+            //这是测试用的。
         }
         private string cal1(string input)
         {
@@ -212,7 +220,7 @@ namespace calculate_core
                 ////////////////////////////////////////////////////////////////////////////////
                 string[] part_op = new string[part_handled.Length];
                 string[] part_num = new string[part_handled.Length];
-                for (int for1 = 0; for1 <= part_handled.Length - 1; for1++)
+                for (int for1 = 0; for1 <= part_handled.Length - 1; for1++)//运算前分割
                 {
                     part_op[for1] = part_handled[for1].First().ToString();
                     part_num[for1] = part_handled[for1].Substring(1);
@@ -252,13 +260,72 @@ namespace calculate_core
                 return "error";
             }
         }
+        private string cal2_forward(string input)//关于cal2的更新
+        {
+            string result = "";
+            if (input.First().ToString().IndexOfAny("+-*/".ToArray()) == -1)//统一格式
+            {
+                input = "+" + input;
+            }
+            int x1 = 0;
+            string rescache = "";
+            while (x1 != -1)
+            {
+                x1 = 0;
+                if (input == "" == true) 
+                {
+                    break;
+                }
+                if (input.IndexOf("*-", x1 + 1) != -1)
+                {
+                    x1 = input.IndexOf("*-", x1 + 1);
+                }
+                else if (input.IndexOf("/-", x1 + 1) != -1)
+                {
+                    x1 = input.IndexOf("/-", x1 + 1);
+                }
+                else
+                {
+                    break;
+                }
+                rescache = input.Substring(0, x1 + 1);//分割
+                input = input.Substring(x1 + 2);//分割
+                if (rescache.IndexOfAny("+-".ToArray()) != -1)
+                {
+                    if (rescache.First() == Convert.ToChar("+"))
+                    {
+                        rescache = "-" + rescache.Substring(1);
+                    }
+                    else if (rescache.First() == Convert.ToChar("-"))
+                    {
+                        rescache = "+" + rescache.Substring(1);
+                    }
+                }
+                result = result + rescache;
+            }
+            result = result + input;
+            return result;
+        }
         private void input_KeyUp(object sender, KeyEventArgs e)
         {
-            output.Text = cal2(input.Text);
+            //output.Text = cal2_forward(input.Text);
+            //a(input.Text);
         }
-        private void a()
+        private void a(string input)
         {
-            output.Text = cal2(input.Text);
+            /*output.Text = "";
+            output.Text = output.Text + input.IndexOf("5").ToString() + "\r\n";
+            output.Text = output.Text + input.IndexOf("567").ToString() + "\r\n";*/
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            input.Text = cal2_forward(input.Text);
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            input.Text = output.Text;
         }
     }
 }
