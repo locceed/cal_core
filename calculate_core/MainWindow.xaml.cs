@@ -263,10 +263,6 @@ namespace calculate_core
         private string cal2_forward(string input)//关于cal2的更新
         {
             string result = "";
-            if (input.First().ToString().IndexOfAny("+-*/".ToArray()) == -1)//统一格式
-            {
-                input = "+" + input;
-            }
             int x1 = 0;
             string rescache = "";
             while (x1 != -1)
@@ -292,13 +288,13 @@ namespace calculate_core
                 input = input.Substring(x1 + 2);//分割
                 if (rescache.IndexOfAny("+-".ToArray()) != -1)
                 {
-                    if (rescache.First() == Convert.ToChar("+"))
+                    if (rescache.Last() == Convert.ToChar("+"))
                     {
-                        rescache = "-" + rescache.Substring(1);
+                        rescache = rescache.Substring(0, rescache.LastIndexOf("+")) + "-" + rescache.Substring(rescache.LastIndexOf("+") + 1);
                     }
-                    else if (rescache.First() == Convert.ToChar("-"))
+                    else if (rescache.Last() == Convert.ToChar("-"))
                     {
-                        rescache = "+" + rescache.Substring(1);
+                        rescache = rescache.Substring(0, rescache.LastIndexOf("-")) + "+" + rescache.Substring(rescache.LastIndexOf("-") + 1);
                     }
                 }
                 result = result + rescache;
