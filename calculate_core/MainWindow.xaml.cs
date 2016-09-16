@@ -260,70 +260,9 @@ namespace calculate_core
                 return "error";
             }
         }
-        private string cal2_forward(string input)//关于cal2的更新（失败）
-        {
-            string result = "";
-            int x1 = 0;
-            string rescache = "";
-            while (x1 != -1)
-            {
-                x1 = 0;
-                if (input == "" == true) 
-                {
-                    break;
-                }
-                if (input.IndexOf("*-", x1 + 1) != -1)
-                {
-                    x1 = input.IndexOf("*-", x1 + 1);
-                }
-                else if (input.IndexOf("/-", x1 + 1) != -1)
-                {
-                    x1 = input.IndexOf("/-", x1 + 1);
-                }
-                else
-                {
-                    break;
-                }
-                rescache = input.Substring(0, x1 + 1);//分割
-                input = input.Substring(x1 + 2);//分割
-                if (rescache.IndexOfAny("+-".ToArray()) != -1)
-                {
-                    if (rescache.Last() == Convert.ToChar("+"))
-                    {
-                        rescache = rescache.Substring(0, rescache.LastIndexOf("+")) + "-" + rescache.Substring(rescache.LastIndexOf("+") + 1);
-                    }
-                    else if (rescache.Last() == Convert.ToChar("-"))
-                    {
-                        rescache = rescache.Substring(0, rescache.LastIndexOf("-")) + "+" + rescache.Substring(rescache.LastIndexOf("-") + 1);
-                    }
-                }
-                result = result + rescache;
-            }
-            result = result + input;
-            return result;
-        }
-        private void cal2_forward1(string input)
-        {
-            int x1 = 0;
-            int numcache = 0;
-            while (x1 != -1)
-            {
-                if (input.IndexOf("*-", x1 + 1) != -1)
-                {
-                    x1 = input.IndexOf("*-", x1 + 1);
-                    numcache++;
-                }
-                else if (input.IndexOf("/-", x1 + 1) != -1)
-                {
-                    x1 = input.IndexOf("/-", x1 + 1);
-                    numcache++;
-                }
-            }
-            MessageBox.Show(numcache.ToString());
-        }
         private void input_KeyUp(object sender, KeyEventArgs e)
         {
-            //output.Text = cal2_forward(input.Text);
+            output.Text = cal2(input.Text);
             //a(input.Text);
         }
         private void a(string input)
@@ -335,12 +274,12 @@ namespace calculate_core
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            input.Text = cal2_forward(input.Text);
+            
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            cal2_forward1(input.Text);
+            
         }
     }
 }
