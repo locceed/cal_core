@@ -9,7 +9,7 @@ namespace calculate_core
 {
     class Cal
     {
-        private string cal1(string input)
+        static private string cal1(string input)
         {
             try
             {
@@ -91,7 +91,7 @@ namespace calculate_core
                 return "error";
             }
         }//最原始
-        private string cal2(string input)//运算法则更新
+        static private string cal2(string input)//运算法则更新
         {
             try
             {

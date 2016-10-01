@@ -105,7 +105,7 @@ namespace calculate_core
         }//test
         private void input_KeyUp(object sender, KeyEventArgs e)
         {
-            output.Text = Cal.cal3(input.Text);
+            output.Text = other.bracket1(input.Text);
         }
         private void button_Click(object sender, RoutedEventArgs e)
         {
