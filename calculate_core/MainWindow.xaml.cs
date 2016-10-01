@@ -262,19 +262,12 @@ namespace calculate_core
         }
         private void input_KeyUp(object sender, KeyEventArgs e)
         {
-            output.Text = cal2(input.Text);
-            //a(input.Text);
-        }
-        private void a(string input)
-        {
-            /*output.Text = "";
-            output.Text = output.Text + input.IndexOf("5").ToString() + "\r\n";
-            output.Text = output.Text + input.IndexOf("567").ToString() + "\r\n";*/
+            
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            
+            output.Text = Cal.test(input.Text);
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
