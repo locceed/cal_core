@@ -11,41 +11,72 @@ namespace calculate_core
     {
         static public string divide(string input)//test
         {
+            if (input.First().ToString().IndexOfAny("+-".ToArray()) == -1)//统一格式
+            {
+                input = "+" + input;
+            }
             int x1 = 0;
-            int x2 = 0;
-            while (x1 != -1)
+            int x2 = 0;//多余
+            int opnum = 0;
+            x1 = input.IndexOfAny("+-".ToArray(), x1);//分割3
+            x1++;
+            opnum++;
+            while (true)
             {
-                x1 = input.IndexOf("*-", x1 + 1);
-                if (x1!=-1)
-                { x2++; }
+                x1 = input.IndexOfAny("+-".ToArray(), x1);
+                if (x1 == -1)
+                {
+                    break;
+                }
+                if (input.Substring(x1 - 1).First().ToString() == "*" || input.Substring(x1 - 1).First().ToString() == "/")
+                {
+                    if (x1 != -1)
+                    {
+                        x1++;
+                    }
+                }
+                else
+                {
+                    opnum++;
+                    if (x1 != -1)
+                    {
+                        x1++;
+                    }
+                }
             }
             x1 = 0;
-            while (x1 != -1)
+            x2 = 0;
+            int[] oplocation = new int[opnum];
+            string[] part = new string[opnum];
+            x1 = input.IndexOfAny("+-".ToArray(), x1);//符号位置3
+            oplocation[x2] = x1;
+            x1++;
+            x2++;
+            while (true)
             {
-                x1 = input.IndexOf("/-", x1 + 1);
-                if (x1 != -1)
-                { x2++; }
-            }
-            x1 = 0;
-            int[] oplo = new int[x2];//
-            for (int for1 = 0; for1 <= x2; for1++) 
-            {
-                if (input.IndexOf("*-", x1 + 1) > input.IndexOf("/-", x1 + 1))
+                x1 = input.IndexOfAny("+-".ToArray(), x1);
+                if (x1 == -1)
                 {
-                    oplo[for1] = input.IndexOf("/-", x1 + 1);
-                    x1 = input.IndexOf("/-", x1 + 1);
+                    break;
                 }
-                else if (input.IndexOf("*-", x1 + 1) < input.IndexOf("/-", x1 + 1))
+                if (input.Substring(x1 - 1).First().ToString() == "*" || input.Substring(x1 - 1).First().ToString() == "/")
                 {
-                    oplo[for1] = input.IndexOf("*-", x1 + 1);
-                    x1 = input.IndexOf("*-", x1 + 1);
+                    if (x1 != -1)
+                    {
+                        x1++;
+                    }
+                }
+                else
+                {
+                    oplocation[x2] = x1;
+                    x2++;
+                    if (x1 != -1)
+                    {
+                        x1++;
+                    }
                 }
             }
-            string a="";
-            for (int for1 = 0; for1 <= oplo.Length-1; for1++)
-            {
-                a = a + "<" + oplo[for1].ToString() + ">";
-            }
+            string a = opnum.ToString();
             return a;
         }
         static public string test(string input)
@@ -58,7 +89,7 @@ namespace calculate_core
             int opnum = 0;//符号个数
             while (x1 != -1)//符号个数
             {
-                if (x1 != -1 && x1 != 0) 
+                if (x1 != -1 && x1 != 0)
                 {
                     if (input.Substring(x1 - 1).First().ToString() == "*" || input.Substring(x1 - 1).First().ToString() == "/")
                     {
@@ -70,7 +101,7 @@ namespace calculate_core
                         opnum++;
                     }
                 }
-                else if(x1 == 0)
+                else if (x1 == 0)
                 {
                     x1 = input.IndexOfAny("+-".ToArray(), x1 + 1);
                     opnum++;
@@ -103,52 +134,80 @@ namespace calculate_core
                     x2++;
                 }
             }
-            string a="";
+            string a = "";
             for (int for1 = 0; for1 <= oplocation.Length - 1; for1++)//打印
             {
                 a = a + "<" + oplocation[for1].ToString() + ">";
             }
             return a;
         }
-         static public string cal3(string input)//更新ing
+        static public string cal3(string input)//更新ing
         {
             if (input.First().ToString().IndexOfAny("+-".ToArray()) == -1)//统一格式
             {
                 input = "+" + input;
             }
-            int x1 = 0;//计数
-            int opnum = 0;//符号个数
-            while (x1 != -1)//符号个数
+            int x1 = 0;
+            int x2 = 0;//多余
+            int opnum = 0;
+            x1 = input.IndexOfAny("+-".ToArray(), x1);//分割3
+            x1++;
+            opnum++;
+            while (true)
             {
-                if (x1 != -1)
+                x1 = input.IndexOfAny("+-".ToArray(), x1);
+                if (x1 == -1)
                 {
-                    if (input.Substring(input.IndexOfAny("+-".ToArray(), x1 + 1) - 1).First() == Convert.ToChar("*") || input.Substring(input.IndexOfAny("+-".ToArray(), x1 + 1) - 1).First() == Convert.ToChar("/"))
-                    { x1 += 1; }
-                    else
+                    break;
+                }
+                if (input.Substring(x1 - 1).First().ToString() == "*" || input.Substring(x1 - 1).First().ToString() == "/")
+                {
+                    if (x1 != -1)
                     {
-                        x1 = input.IndexOfAny("+-".ToArray(), x1 + 1);
-                        opnum++;
+                        x1++;
                     }
                 }
-            }
-            x1 = 0;//计数器归零
-            int[] oplocation = new int[opnum];
-            string[] part = new string[opnum];
-            for (int for1 = 0; for1 <= part.Length - 1; for1++)//符号位置
-            {
-                if (x1 != -1)
+                else
                 {
-                    if (input.Substring(input.IndexOfAny("+-".ToArray(), x1 + 1) - 1, input.IndexOfAny("+-".ToArray(), x1 + 1)) == "*" || input.Substring(input.IndexOfAny("+-".ToArray(), x1 + 1) - 1, input.IndexOfAny("+-".ToArray(), x1 + 1)) == "/")
-                    { x1 += 1; }
-                    else
+                    opnum++;
+                    if (x1 != -1)
                     {
-                        x1 = input.IndexOfAny("+-".ToArray(), x1);
-                        oplocation[for1] = x1;
                         x1++;
                     }
                 }
             }
-            x1 = 0;//计数器归零
+            x1 = 0;
+            x2 = 0;
+            int[] oplocation = new int[opnum];
+            string[] part = new string[opnum];
+            x1 = input.IndexOfAny("+-".ToArray(), x1);//符号位置3
+            oplocation[x2] = x1;
+            x1++;
+            x2++;
+            while (true)
+            {
+                x1 = input.IndexOfAny("+-".ToArray(), x1);
+                if (x1 == -1)
+                {
+                    break;
+                }
+                if (input.Substring(x1 - 1).First().ToString() == "*" || input.Substring(x1 - 1).First().ToString() == "/")
+                {
+                    if (x1 != -1)
+                    {
+                        x1++;
+                    }
+                }
+                else
+                {
+                    oplocation[x2] = x1;
+                    x2++;
+                    if (x1 != -1)
+                    {
+                        x1++;
+                    }
+                }
+            }
             for (int for1 = 0; for1 <= part.Length - 1; for1++)//加减分割
             {
                 if (for1 >= oplocation.Length - 1)
@@ -264,7 +323,7 @@ namespace calculate_core
             //这是测试用的。
             try
             {
-                
+
             }
             catch (Exception e)
             {
@@ -272,25 +331,5 @@ namespace calculate_core
                 return "error";
             }
         }
-    }/*if (x1 >= 1) （可能弄错。重写）
-                {
-                    if (input.Substring(x1 - 1).First().ToString() == "*" || input.Substring(x1 - 1).First().ToString() == "/")
-                    {
-                        //MessageBox.Show(x1.ToString());
-                        x1 = input.IndexOfAny("+-".ToArray(), x1);
-                        x1++;
-                    }
-                    else
-                    {
-                        x1 = input.IndexOfAny("+-".ToArray(), x1);
-                        oplocation[for1] = x1;
-                        x1++;
-                    }
-                }
-                else if (x1 == 0)
-                {
-                    x1 = input.IndexOfAny("+-".ToArray(), x1);
-                    oplocation[for1] = x1;
-                    x1++;
-                }*/
+    }
 }

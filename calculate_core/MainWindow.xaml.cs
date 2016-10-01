@@ -262,12 +262,12 @@ namespace calculate_core
         }
         private void input_KeyUp(object sender, KeyEventArgs e)
         {
-            
+            output.Text = Cal.divide(input.Text);
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            output.Text = Cal.test(input.Text);
+            output.Text = Cal.divide(input.Text);
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
