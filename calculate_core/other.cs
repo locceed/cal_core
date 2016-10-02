@@ -11,36 +11,19 @@ namespace calculate_core
         //准备写括号。
         static public string bracket1(string input)//括号
         {
-            int x1 = 0;
-            int x2 = 0;
-            int bracketnum = 0;
-            while (true)//检测个数
+            return "";
+        }
+        static public string time(string input)
+        {
+            try
             {
-                if (x1 != -1)
-                {
-                    x1 = input.IndexOf("(", x1);
-                }
-                if (x2 != -1)
-                {
-                    x2 = input.IndexOf("(", x2);
-                }
-                if (x1 == -1 && x2 == -1)
-                {
-                    break;
-                }
-                else if (x1 != -1)
-                {
-                    x1++;
-                    bracketnum++;
-                }
-                else if (x2 != -1) 
-                {
-                    x2++;
-                    bracketnum--;
-                }
+                string result = (Convert.ToInt64(input) / (60 * 60 * 1000)).ToString("00") + ":" + ((Convert.ToInt64(input) % (60 * 60 * 1000)) / (60 * 1000)).ToString("00") + ":" + (((Convert.ToInt64(input) % (60 * 60 * 1000)) % (60 * 1000)) / 1000).ToString("00") + ":" + ((((Convert.ToInt64(input) % (60 * 60 * 1000)) % (60 * 1000)) % 1000) / 1).ToString("000");
+                return result;
             }
-            string a = bracketnum.ToString();
-            return a;
+            catch(Exception a)
+            {
+                return "error";
+            }
         }
     }
 }

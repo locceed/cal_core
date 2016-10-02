@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Threading;
-
 namespace calculate_core
 {
     /// <summary>
@@ -105,7 +104,7 @@ namespace calculate_core
         }//test
         private void input_KeyUp(object sender, KeyEventArgs e)
         {
-            output.Text = other.bracket1(input.Text);
+            output.Text = other.time(input.Text);
         }
         private void button_Click(object sender, RoutedEventArgs e)
         {
@@ -115,5 +114,6 @@ namespace calculate_core
         {
             output.Text = "";
         }
+        
     }
 }
