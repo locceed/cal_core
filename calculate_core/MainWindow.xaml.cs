@@ -20,35 +20,17 @@ namespace calculate_core
     /// </summary>
     public partial class MainWindow : Window
     {
-        static public int a;//15~16
-        DateTime b;
+        
         private void input_KeyUp(object sender, KeyEventArgs e)
         {
-            output.Text = other.time(input.Text);
+
         }
         private void button_Click(object sender, RoutedEventArgs e)
         {
-           timer();
-            b = DateTime.Now.AddMinutes(1);
+
         }
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-        }
-        
-        public void timer()
-        {
-            System.Timers.Timer timer1 = new System.Timers.Timer(1);
-            timer1.Elapsed += new System.Timers.ElapsedEventHandler(timer1_Elapsed);
-            timer1.AutoReset = true;
-            timer1.Enabled = true;
-        }
-        public void timer1_Elapsed(object source, System.Timers.ElapsedEventArgs e)
-
-        {
-            this.Dispatcher.BeginInvoke(new Action(() =>
-            {
-                output.Text = (DateTime.Now - b).ToString() ;
-            }));
         }
     }
 }
