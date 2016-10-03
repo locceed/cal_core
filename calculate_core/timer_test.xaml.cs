@@ -23,11 +23,11 @@ namespace calculate_core
         {
             InitializeComponent();
         }
+        System.Timers.Timer timer1 = new System.Timers.Timer(1);
         static public int a;//15~16
         DateTime b;
         public void timer()
         {
-            System.Timers.Timer timer1 = new System.Timers.Timer(1);
             timer1.Elapsed += new System.Timers.ElapsedEventHandler(timer1_Elapsed);
             timer1.AutoReset = true;
             timer1.Enabled = true;
@@ -43,12 +43,25 @@ namespace calculate_core
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            b = DateTime.Now.AddMinutes(1);
+            b = DateTime.Now.AddHours(Convert.ToInt64(hh.Text)).AddMinutes(Convert.ToInt64(mm.Text)).AddSeconds(Convert.ToInt64(ss.Text));
+            timer();
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
+            b = DateTime.Now;
             timer();
+        }
+
+        private void button2_Click(object sender, RoutedEventArgs e)
+        {
+            timer1.Enabled = false;
+            b = Convert.ToDateTime("00:00:00");
+        }
+
+        private void button3_Click(object sender, RoutedEventArgs e)
+        {
+            timeshow.Text = "00:00:00";
         }
     }
 }

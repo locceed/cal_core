@@ -16,6 +16,8 @@
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="301,89,0,0" TextWrapping="Wrap" Text="小时" VerticalAlignment="Top"/>
         <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="301,117,0,0" TextWrapping="Wrap" Text="分钟" VerticalAlignment="Top"/>
         <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="301,145,0,0" TextWrapping="Wrap" Text="秒" VerticalAlignment="Top"/>
+        <Button x:Name="button2" Content="Button" HorizontalAlignment="Left" Margin="406,216,0,0" VerticalAlignment="Top" Width="75" Click="button2_Click"/>
+        <Button x:Name="button3" Content="Button" HorizontalAlignment="Left" Margin="406,235,0,0" VerticalAlignment="Top" Width="75" Click="button3_Click"/>
 
     </Grid>
 </Window>

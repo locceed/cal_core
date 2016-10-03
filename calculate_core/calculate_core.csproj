@@ -57,8 +57,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="timer.cs" />
-    <Compile Include="计时器.xaml.cs">
-      <DependentUpon>计时器.xaml</DependentUpon>
+    <Compile Include="timer_test.xaml.cs">
+      <DependentUpon>timer_test.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -73,7 +73,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="计时器.xaml">
+    <Page Include="timer_test.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
