@@ -20,100 +20,35 @@ namespace calculate_core
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-            /*
-            output.Text = "";
-            for (int xx = 0; xx <= part_handled.Length - 1; xx++)
-            {
-               //output.Text = output.Text + "<" + part_num[xx].ToString() + ">";
-            }
-            */
-            //这是测试用的。
-        }
-        static public string test(string input)
-        {
-            if (input.First().ToString().IndexOfAny("+-".ToArray()) == -1)//统一格式
-            {
-                input = "+" + input;
-            }
-            int x1 = 0;
-            int x2 = 0;//多余
-            int opnum = 0;
-            x1 = input.IndexOfAny("+-".ToArray(), x1);//分割3
-            x1++;
-            opnum++;
-            while (true)
-            {
-                x1 = input.IndexOfAny("+-".ToArray(), x1);
-                if (x1 == -1)
-                {
-                    break;
-                }
-                if (input.Substring(x1 - 1).First().ToString() == "*" || input.Substring(x1 - 1).First().ToString() == "/")
-                {
-                    if (x1 != -1)
-                    {
-                        x1++;
-                    }
-                }
-                else
-                {
-                    opnum++;
-                    if (x1 != -1)
-                    {
-                        x1++;
-                    }
-                }
-            }
-            x1 = 0;
-            x2 = 0;
-            int[] oplocation = new int[opnum];
-            string[] part = new string[opnum];
-            x1 = input.IndexOfAny("+-".ToArray(), x1);//符号位置3
-            oplocation[x2] = x1;
-            x1++;
-            x2++;
-            while (true)
-            {
-                x1 = input.IndexOfAny("+-".ToArray(), x1);
-                if (x1 == -1)
-                {
-                    break;
-                }
-                if (input.Substring(x1 - 1).First().ToString() == "*" || input.Substring(x1 - 1).First().ToString() == "/")
-                {
-                    if (x1 != -1)
-                    {
-                        x1++;
-                    }
-                }
-                else
-                {
-                    oplocation[x2] = x1;
-                    x2++;
-                    if (x1 != -1)
-                    {
-                        x1++;
-                    }
-                }
-            }
-            string a = opnum.ToString();
-            return a;
-        }//test
+        static public int a;//15~16
+        DateTime b;
         private void input_KeyUp(object sender, KeyEventArgs e)
         {
             output.Text = other.time(input.Text);
         }
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            input.Text = "";
+           timer();
+            b = DateTime.Now.AddMinutes(1);
         }
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            output.Text = "";
         }
         
+        public void timer()
+        {
+            System.Timers.Timer timer1 = new System.Timers.Timer(1);
+            timer1.Elapsed += new System.Timers.ElapsedEventHandler(timer1_Elapsed);
+            timer1.AutoReset = true;
+            timer1.Enabled = true;
+        }
+        public void timer1_Elapsed(object source, System.Timers.ElapsedEventArgs e)
+
+        {
+            this.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                output.Text = (DateTime.Now - b).ToString() ;
+            }));
+        }
     }
 }
