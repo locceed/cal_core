@@ -17,9 +17,9 @@ namespace calculate_core
     /// <summary>
     /// 计时器.xaml 的交互逻辑
     /// </summary>
-    public partial class 计时器 : Window
+    public partial class timer_test : Window
     {
-        public 计时器()
+        public timer_test()
         {
             InitializeComponent();
         }

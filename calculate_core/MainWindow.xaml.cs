@@ -27,7 +27,8 @@ namespace calculate_core
         }
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            
+            timer_test tm1 = new timer_test();
+            tm1.Show();
         }
         private void button1_Click(object sender, RoutedEventArgs e)
         {
