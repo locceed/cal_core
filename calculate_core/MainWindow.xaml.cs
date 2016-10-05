@@ -32,7 +32,7 @@ namespace calculate_core
         }
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            output.Text = other.use1(input.Text);
+            output.Text = other.use2(input.Text);
         }
     }
 }

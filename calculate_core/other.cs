@@ -30,13 +30,44 @@ namespace calculate_core
         {
             if (input.IndexOf("(") == -1)
             {
-                return (-1).ToString();
+                return "-1";
             }
             else
             {
+                int x1 = 0;
+                int x2 = 0;
+                int x3 = 0;
+                int x4 = 0;
+                int x5 = 0;
+                string[] bracket1 = new string[1024];
+                while (true)
+                {
+                    if (x1 == -1)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        while (true) 
+                        {
+                            x1 = input.IndexOf("(", x1 + 1);
+                            x4++;
+                            x3 = input.IndexOf(")", x1 + 1);
+                            if (x2 != x3)
+                            {
+                                x4--;
+                            }
+                            x3 = x2;
+                            if (x4 == 0)
+                            {
+                                break;
+                            }
+                        }
+                    }
 
+                }
+                return "";
             }
-            return "";
         }
     }
 }
