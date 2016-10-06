@@ -60,18 +60,37 @@ namespace calculate_core
                 }
             }
             x1 = 0;
-            for (int for1 = 0; for1 <= part.Length - 1; for1++) 
+            for (int for1 = 0; for1 <= part.Length - 1; for1++)
             {
-                if( part[for1]=="error"|| part[for1] == null)
+                if (part[for1] == "error" || part[for1] == null)
                 {
-                    
+
                 }
                 else
                 {
                     x1++;
                 }
             }
-            return "";
+            string[] part_re = new string[x1];
+            x1 = 0;
+            for (int for1 = 0; for1 <= part.Length - 1; for1++)
+            {
+                if (part[for1] == "error" || part[for1] == null)
+                {
+
+                }
+                else
+                {
+                    part_re[x1] = part[for1];
+                    x1++;
+                }
+            }
+            string result = "";
+            for (int for1 = 0; for1 <= part_re.Length - 1; for1++)
+            {
+                result = result + part_re[for1];
+            }
+            return "(" + result + ")";
         }
     }
 }
