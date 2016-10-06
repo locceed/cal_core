@@ -26,6 +26,10 @@ namespace calculate_core
             {
                 input = "+" + input;
             }
+            if (input.Substring(1).First().ToString() != "(" || input.Last().ToString() != ")") 
+            {
+                return "error";
+            }
             string part_op = "";
             string part_cal = "";
             part_op = input.First().ToString();
@@ -40,9 +44,9 @@ namespace calculate_core
         {
             string[] part = new string[Convert.ToInt32(Math.Pow(input.Length,2))];
             int x1 = 0 ;
-            for (int for1 = 0; for1 <= input.Length; for1++) 
+            for (int for1 = 0; for1 <= input.Length - 1; for1++) 
             {
-                for (int for2 = input.Length; for2 >= 0; for2--) 
+                for (int for2 = input.Length - 1; for2 >= for1; for2--) 
                 {
                     try
                     {
@@ -53,6 +57,18 @@ namespace calculate_core
                     {
                         x1++;
                     }
+                }
+            }
+            x1 = 0;
+            for (int for1 = 0; for1 <= part.Length - 1; for1++) 
+            {
+                if( part[for1]=="error"|| part[for1] == null)
+                {
+                    
+                }
+                else
+                {
+                    x1++;
                 }
             }
             return "";
