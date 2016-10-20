@@ -10,17 +10,25 @@ namespace calculate_core
     class other
     {
         //准备写括号。
-        static public string bracket1(string input)//括号（ing）
+        static public string bracket1(string input)//括号
         {
-            while (true)
+            try
             {
-                if (input.IndexOf(")") == -1)
+                input = "(" + input + ")";
+                while (true)
                 {
-                    break;
+                    if (input.IndexOf(")") == -1)
+                    {
+                        break;
+                    }
+                    input = input.Substring(0, input.Substring(0, input.IndexOf(")")).LastIndexOf("(")) + Cal.cal3(input.Substring(input.Substring(0, input.IndexOf(")")).LastIndexOf("(") + 1, input.IndexOf(")") - input.Substring(0, input.IndexOf(")")).LastIndexOf("(") - 1)) + input.Substring(input.IndexOf(")") + 1);
                 }
-                input = input.Substring(0, input.Substring(0, input.IndexOf(")")).LastIndexOf("(")) + Cal.cal3(input.Substring(input.Substring(0, input.IndexOf(")")).LastIndexOf("(") + 1, input.IndexOf(")") - input.Substring(0, input.IndexOf(")")).LastIndexOf("(") - 1)) + input.Substring(input.IndexOf(")") + 1);
+                return input;
             }
-            return input;
+            catch (Exception e)
+            {
+                return "error";
+            }
         }
     }
 }
