@@ -23,7 +23,7 @@ namespace calculate_core
         
         private void input_KeyUp(object sender, KeyEventArgs e)
         {
-
+            
         }
         private void button_Click(object sender, RoutedEventArgs e)
         {
@@ -32,7 +32,7 @@ namespace calculate_core
         }
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            output.Text = other.use2(input.Text);
+            output.Text = other.bracket1(input.Text);
         }
     }
 }

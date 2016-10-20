@@ -245,7 +245,7 @@ namespace calculate_core
                     input = "+" + input;
                 }
                 int x1 = 0;
-                int x2 = 0;//多余
+                int x2 = 0;
                 int opnum = 0;
                 x1 = input.IndexOfAny("+-".ToArray(), x1);//分割3
                 x1++;

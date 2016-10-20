@@ -12,85 +12,15 @@ namespace calculate_core
         //准备写括号。
         static public string bracket1(string input)//括号（ing）
         {
-
-            if (input.First().ToString().IndexOfAny("+-".ToArray()) == -1)//统一格式
+            while (true)
             {
-                input = "+" + input;
-            }
-
-            return "";
-        }
-        static public string use1(string input)//单括号计算
-        {
-            if (input.First().ToString().IndexOfAny("+-".ToArray()) == -1)//统一格式
-            {
-                input = "+" + input;
-            }
-            if (input.Substring(1).First().ToString() != "(" || input.Last().ToString() != ")") 
-            {
-                return "error";
-            }
-            string part_op = "";
-            string part_cal = "";
-            part_op = input.First().ToString();
-            part_cal = Cal.cal3(input.Substring(2, input.Length - 3));
-            if (part_cal.IndexOf("error") != -1)
-            {
-                return "error";
-            }
-            return part_op + part_cal;
-        }
-        static public string use2(string input)//分解多括号
-        {
-            string[] part = new string[Convert.ToInt32(Math.Pow(input.Length,2))];
-            int x1 = 0 ;
-            for (int for1 = 0; for1 <= input.Length - 1; for1++) 
-            {
-                for (int for2 = input.Length - 1; for2 >= for1; for2--) 
+                if (input.IndexOf(")") == -1)
                 {
-                    try
-                    {
-                        part[x1]= use1(input.Substring(for1, for2));
-                        x1++;
-                    }
-                    catch
-                    {
-                        x1++;
-                    }
+                    break;
                 }
+                input = input.Substring(0, input.Substring(0, input.IndexOf(")")).LastIndexOf("(")) + Cal.cal3(input.Substring(input.Substring(0, input.IndexOf(")")).LastIndexOf("(") + 1, input.IndexOf(")") - input.Substring(0, input.IndexOf(")")).LastIndexOf("(") - 1)) + input.Substring(input.IndexOf(")") + 1);
             }
-            x1 = 0;
-            for (int for1 = 0; for1 <= part.Length - 1; for1++)
-            {
-                if (part[for1] == "error" || part[for1] == null)
-                {
-
-                }
-                else
-                {
-                    x1++;
-                }
-            }
-            string[] part_re = new string[x1];
-            x1 = 0;
-            for (int for1 = 0; for1 <= part.Length - 1; for1++)
-            {
-                if (part[for1] == "error" || part[for1] == null)
-                {
-
-                }
-                else
-                {
-                    part_re[x1] = part[for1];
-                    x1++;
-                }
-            }
-            string result = "";
-            for (int for1 = 0; for1 <= part_re.Length - 1; for1++)
-            {
-                result = result + part_re[for1];
-            }
-            return "(" + result + ")";
+            return input;
         }
     }
 }
