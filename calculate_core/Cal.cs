@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -426,5 +427,15 @@ namespace calculate_core
                 return "error";
             }
         }
+        static public string cal4(string input)
+        {
+            ArrayList oplocation = new ArrayList();
+
+            foreach (int a in oplocation)
+            {
+                
+            }
+            return "";
+        }//使用ArrayList
     }
 }

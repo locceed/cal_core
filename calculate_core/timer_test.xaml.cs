@@ -23,7 +23,7 @@ namespace calculate_core
         {
             InitializeComponent();
         }
-        System.Timers.Timer timer1 = new System.Timers.Timer(1);
+        System.Timers.Timer timer1 = new System.Timers.Timer(25);
         static public int a;//15~16
         DateTime b;
         public void timer()
