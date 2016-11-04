@@ -10,7 +10,7 @@ namespace calculate_core
 {
     class Cal
     {
-        static public string cal1(string input)
+        static public string cal1(string input)//最原始
         {
             try
             {
@@ -91,7 +91,7 @@ namespace calculate_core
                 MessageBox.Show(e.ToString());
                 return "error";
             }
-        }//最原始
+        }
         static public string cal2(string input)//运算法则更新
         {
             try
@@ -427,15 +427,14 @@ namespace calculate_core
                 return "error";
             }
         }
-        static public string cal4(string input)
+        static public string cal4(string input)//使用ArrayList
         {
-            ArrayList oplocation = new ArrayList();
-
-            foreach (int a in oplocation)
+            if (input.First().ToString().IndexOfAny("+-".ToArray()) == -1)//统一格式
             {
-                
+                input = "+" + input;
             }
-            return "";
-        }//使用ArrayList
+            ArrayList oplocation = new ArrayList();
+            return oplocation.Count.ToString();
+        }
     }
 }
