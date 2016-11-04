@@ -429,11 +429,23 @@ namespace calculate_core
         }
         static public string cal4(string input)//使用ArrayList
         {
+            
             if (input.First().ToString().IndexOfAny("+-".ToArray()) == -1)//统一格式
             {
                 input = "+" + input;
             }
             ArrayList oplocation = new ArrayList();
+            int x1 = 0;
+            while (true)
+            {
+                oplocation.Add(input.IndexOfAny("+-".ToArray(), x1 + 1));
+                x1 = input.IndexOfAny("+-".ToArray(), x1 + 1);
+                if (x1 == -1)
+                {
+                    oplocation.RemoveAt(oplocation.Count - 1);//去掉最后的-1
+                    break;
+                }
+            }
             return oplocation.Count.ToString();
         }
     }
