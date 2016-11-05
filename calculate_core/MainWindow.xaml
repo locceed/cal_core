@@ -8,7 +8,7 @@
         Title="MainWindow" Height="350" Width="525">
     <Grid>
         <Button x:Name="button" Content="in(clear)" HorizontalAlignment="Left" Margin="14,250,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
-        <TextBox x:Name="input" HorizontalAlignment="Left" Height="100" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="497" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" KeyUp="input_KeyUp" Text="11111&#xD;&#xA;"/>
+        <TextBox x:Name="input" HorizontalAlignment="Left" Height="100" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="497" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" KeyUp="input_KeyUp" Text="1+2+3"/>
         <TextBox x:Name="output" HorizontalAlignment="Left" Height="100" Margin="10,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="497" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"/>
         <Button x:Name="button1" Content="out(clear)" HorizontalAlignment="Left" Margin="94,250,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
 

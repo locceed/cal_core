@@ -435,14 +435,13 @@ namespace calculate_core
                 input = "+" + input;
             }
             ArrayList oplocation = new ArrayList();
-            int x1 = 0;
-            while (true)
+            while (true)//符号位置
             {
-                oplocation.Add(input.IndexOfAny("+-".ToArray(), x1 + 1));
-                x1 = input.IndexOfAny("+-".ToArray(), x1 + 1);
-                if (x1 == -1)
+                oplocation.Add(input.Substring(0, input.IndexOfAny("+-".ToArray())));
+                input = input.Substring(input.IndexOfAny("+-".ToArray())+1);
+                if (input.IndexOfAny("+-".ToArray()) == -1)
                 {
-                    oplocation.RemoveAt(oplocation.Count - 1);//去掉最后的-1
+                    oplocation.Add(input);
                     break;
                 }
             }
