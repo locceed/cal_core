@@ -435,17 +435,28 @@ namespace calculate_core
                 input = "+" + input;
             }
             ArrayList oplocation = new ArrayList();
-            while (true)//符号位置
+            int x = 0;
+            int y = 0;
+            while (true)//加减分割
             {
-                oplocation.Add(input.Substring(0, input.IndexOfAny("+-".ToArray())));
-                input = input.Substring(input.IndexOfAny("+-".ToArray())+1);
-                if (input.IndexOfAny("+-".ToArray()) == -1)
+                x = input.Substring(1).IndexOfAny("+-".ToArray());
+                if (x == -1)
                 {
                     oplocation.Add(input);
                     break;
                 }
+                else
+                {
+                    x = x + 1;
+                    oplocation.Add(input.Substring(0, x));
+                }
+                input = input.Substring(x);
             }
             return oplocation.Count.ToString();
         }
+        static public string test(string input)
+        {
+            return input.Substring(0, 1);
+        } 
     }
 }
