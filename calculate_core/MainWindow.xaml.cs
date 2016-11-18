@@ -24,6 +24,7 @@ namespace calculate_core
         private void input_KeyUp(object sender, KeyEventArgs e)
         {
             //output.Text = other.bracket1(input.Text);
+            output.Text = Cal.cal4(input.Text);
         }
         private void button_Click(object sender, RoutedEventArgs e)
         {

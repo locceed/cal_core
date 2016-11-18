@@ -429,42 +429,123 @@ namespace calculate_core
         }
         static public string cal4(string input)//使用ArrayList
         {
-            
-            if (input.First().ToString().IndexOfAny("+-".ToArray()) == -1)//统一格式
+            try
             {
-                input = "+" + input;
-            }
-            ArrayList oplocation = new ArrayList();
-            int x = 0;
-            int y = 0;
-            oplocation.Add(" ");
-            while (true)//加减分割
-            {
-                x = input.Substring(1).IndexOfAny("+-".ToArray());
-                if (x == -1)
+                if (input.First().ToString().IndexOfAny("+-".ToArray()) == -1)//统一格式
                 {
-                    oplocation.Add(input);
-                    break;
+                    input = "+" + input;
                 }
-                else
+                ArrayList primary = new ArrayList();
+                int x = 0;
+                int y = 0;
+                decimal q = 0;
+                primary.Add(" ");
+                while (true)//加减分割
                 {
-                    x = x + 1;
-                    if (oplocation[oplocation.Count - 1].ToString().Last().ToString().IndexOfAny("*/".ToArray()) == 0) 
+                    x = input.Substring(1).IndexOfAny("+-".ToArray());
+                    if (x == -1)
                     {
-                        oplocation[oplocation.Count - 1] = oplocation[oplocation.Count - 1] + input.Substring(0, x);
+                        if (primary[primary.Count - 1].ToString().Last().ToString().IndexOfAny("*/".ToArray()) == 0)
+                        {
+                            primary[primary.Count - 1] = primary[primary.Count - 1] + input;
+                        }
+                        else
+                        {
+                            primary.Add(input);
+                        }
+                        break;
                     }
                     else
                     {
-                        oplocation.Add(input.Substring(0, x));
+                        x = x + 1;
+                        if (primary[primary.Count - 1].ToString().Last().ToString().IndexOfAny("*/".ToArray()) == 0)
+                        {
+                            primary[primary.Count - 1] = primary[primary.Count - 1] + input.Substring(0, x);
+                        }
+                        else
+                        {
+                            primary.Add(input.Substring(0, x));
+                        }
                     }
+                    input = input.Substring(x);
                 }
-                input = input.Substring(x);
+                primary.RemoveAt(0);
+                ArrayList secondary = new ArrayList();
+                ArrayList results = new ArrayList();
+                x = 0;//变量重用
+                input = "";
+                foreach (string a in primary)//分割内乘除运算
+                {
+                    input = "*" + a;//乘除分割
+                    while (true)
+                    {
+                        x = input.Substring(1).IndexOfAny("*/".ToArray());
+                        if (x == -1)
+                        {
+                            secondary.Add(input);
+                            break;
+                        }
+                        else
+                        {
+                            x = x + 1;
+                            secondary.Add(input.Substring(0, x));
+                        }
+                        input = input.Substring(x);
+                    }
+                    q = 1;
+                    foreach (string b in secondary)//乘除运算
+                    {
+                        switch (b.First().ToString())
+                        {
+                            case "*":
+                                {
+                                    q = q * Convert.ToDecimal(b.Substring(1));
+                                    break;
+                                }
+                            case "/":
+                                {
+                                    q = q / Convert.ToDecimal(b.Substring(1));
+                                    break;
+                                }
+                        }
+                    }
+                    results.Add(q);
+                    x = 0;//下一轮的初始化
+                    input = "";
+                    secondary.Clear();
+                }
+                q = 0;//变量重用
+                foreach (decimal a in results)
+                {
+                    q = q + a;
+                }
+                return q.ToString();
             }
-            return oplocation.Count.ToString();
+            catch(Exception ex)
+            {
+                return ex.ToString();
+            }
         }
         static public string test(string input)
         {
-            return input.Substring(0, 1);
+            ArrayList a = new ArrayList();
+            a.Add("1");
+            a.Add("246");
+            a.Add("3436");
+            a.Add("364");
+            a.Add("546");
+            a.Add("6363");
+            a.Add("7");
+            a.Add("8436");
+            a.Add("9");
+            a.Add("10");
+            string b;
+            foreach(string x in a)
+            {
+                b = x;
+            }
+            a.Clear();
+            return a.Count.ToString();
         } 
     }
 }
