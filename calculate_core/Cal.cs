@@ -437,6 +437,7 @@ namespace calculate_core
             ArrayList oplocation = new ArrayList();
             int x = 0;
             int y = 0;
+            oplocation.Add(" ");
             while (true)//加减分割
             {
                 x = input.Substring(1).IndexOfAny("+-".ToArray());
@@ -448,7 +449,14 @@ namespace calculate_core
                 else
                 {
                     x = x + 1;
-                    oplocation.Add(input.Substring(0, x));
+                    if (oplocation[oplocation.Count - 1].ToString().Last().ToString().IndexOfAny("*/".ToArray()) == 0) 
+                    {
+                        oplocation[oplocation.Count - 1] = oplocation[oplocation.Count - 1] + input.Substring(0, x);
+                    }
+                    else
+                    {
+                        oplocation.Add(input.Substring(0, x));
+                    }
                 }
                 input = input.Substring(x);
             }
