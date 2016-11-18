@@ -523,7 +523,7 @@ namespace calculate_core
             }
             catch(Exception ex)
             {
-                return ex.ToString();
+                return "error";
             }
         }
         static public string test(string input)
