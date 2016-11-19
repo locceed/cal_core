@@ -527,24 +527,20 @@ namespace calculate_core
         }
         static public string test(string input)
         {
-            ArrayList a = new ArrayList();
-            a.Add("1");
-            a.Add("246");
-            a.Add("3436");
-            a.Add("364");
-            a.Add("546");
-            a.Add("6363");
-            a.Add("7");
-            a.Add("8436");
-            a.Add("9");
-            a.Add("10");
-            string b;
-            foreach(string x in a)
+            try
             {
-                b = x;
+                int x = 0;
+                x = input.IndexOf("|");
+                if (input.Substring(0, x).Last().ToString().IndexOfAny("+-*/".ToArray()) == -1)
+                {
+                    input = input.Substring(0, x) + "*" + input.Substring(x);
+                }
             }
-            a.Clear();
-            return a.Count.ToString();
+            catch
+            {
+
+            }
+            return input;
         } 
     }
 }

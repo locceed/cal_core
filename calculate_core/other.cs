@@ -38,9 +38,17 @@ namespace calculate_core
                 while (true)
                 {
                     x = input.IndexOf("|");
+                    if (x == -1)
+                    {
+                        break;
+                    }
+                    if (input.Substring(0, x).Last().ToString().IndexOfAny("+-*/".ToArray()) == -1)
+                    {
+                        input = input.Substring(0, x) + "*" + input.Substring(x);
+                    }
+                    x = input.IndexOf("|");
                     y = input.Substring(x + 1).IndexOf("|") + 1;
                     input = input.Substring(0, x) + Math.Abs(Convert.ToDecimal(Cal.cal4(input.Substring(x + 1, y - 1)))) + input.Substring(x + y + 1);
-                    break;
                 }
                 return input;
             }

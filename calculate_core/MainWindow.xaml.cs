@@ -25,6 +25,7 @@ namespace calculate_core
         {
             //output.Text = other.bracket1(input.Text);
             output.Text = other.abs(input.Text);
+            //output.Text = Cal.test(input.Text);
         }
         private void button_Click(object sender, RoutedEventArgs e)
         {
