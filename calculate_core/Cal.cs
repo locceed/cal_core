@@ -437,7 +437,6 @@ namespace calculate_core
                 }
                 ArrayList primary = new ArrayList();
                 int x = 0;
-                int y = 0;
                 decimal q = 0;
                 primary.Add(" ");
                 while (true)//加减分割

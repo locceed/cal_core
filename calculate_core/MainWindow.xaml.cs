@@ -23,8 +23,8 @@ namespace calculate_core
         
         private void input_KeyUp(object sender, KeyEventArgs e)
         {
-            output.Text = other.bracket1(input.Text);
-            //output.Text = Cal.cal4(input.Text);
+            //output.Text = other.bracket1(input.Text);
+            output.Text = other.abs(input.Text);
         }
         private void button_Click(object sender, RoutedEventArgs e)
         {
@@ -37,7 +37,7 @@ namespace calculate_core
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
-
+            output.Text = other.abs(input.Text);
         }
     }
 }
