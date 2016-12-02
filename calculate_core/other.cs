@@ -29,7 +29,7 @@ namespace calculate_core
                 return "error";
             }
         }
-        static public string abs(string input)//绝对值(不包括计算)
+        static public string abs(string input)//绝对值(不包括计算)暂时失败
         {
             try
             {
@@ -53,6 +53,25 @@ namespace calculate_core
                 return input;
             }
             catch
+            {
+                return "error";
+            }
+        }
+        static public string abs1(string input)//绝对值（有缺陷）
+        {
+            try
+            {
+                while (true)
+                {
+                    if (input.IndexOf("|~") == -1)
+                    {
+                        break;
+                    }
+                    input = input.Substring(0, input.Substring(0, input.IndexOf("|~")).LastIndexOf("|")) + Math.Abs(Convert.ToDouble(Cal.cal4(input.Substring(input.Substring(0, input.IndexOf("|~")).LastIndexOf("|") + 1, input.IndexOf("|~") - input.Substring(0, input.IndexOf("|~")).LastIndexOf("|") - 1)))) + input.Substring(input.IndexOf("|~") + 2);
+                }
+                return input;
+            }
+            catch (Exception e)
             {
                 return "error";
             }
