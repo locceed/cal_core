@@ -29,7 +29,7 @@ namespace calculate_core
                 return "error";
             }
         }
-        static public string abs(string input)//绝对值(不包括计算)暂时失败
+        /*static public string abs(string input)//绝对值(不包括计算)暂时失败
         {
             try
             {
@@ -42,7 +42,7 @@ namespace calculate_core
                     {
                         break;
                     }
-                    if (input.Substring(0, x).Last().ToString().IndexOfAny("+-*/".ToArray()) == -1)
+                    if (input.Substring(0, x).Last().ToString().IndexOfAny("+-/*".ToArray()) == -1)
                     {
                         input = input.Substring(0, x) + "*" + input.Substring(x);
                     }
@@ -56,7 +56,7 @@ namespace calculate_core
             {
                 return "error";
             }
-        }
+        }*/
         static public string abs1(string input)//绝对值（有缺陷）
         {
             try
