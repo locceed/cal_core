@@ -8,17 +8,23 @@ namespace calculate_core
 {
     class timer
     {
-        static public void timer1()
+        static public TimeSpan t1()
         {
-            System.Timers.Timer timer1 = new System.Timers.Timer(1000);
-            timer1.Elapsed += new System.Timers.ElapsedEventHandler(timer1_Elapsed);
-            timer1.AutoReset = true;
-            timer1.Enabled = true;
-        }
-        static public void timer1_Elapsed(object source, System.Timers.ElapsedEventArgs e)
-
-        {
-
+            bool isend = false;
+            TimeSpan a;
+            DateTime past = DateTime.Now;
+            if (isend==false)
+            {
+                a = TimeSpan.Zero;
+                past = DateTime.Now;
+                isend = true;
+            }
+            else
+            {
+                a = DateTime.Now - past;
+                isend = false;
+            }
+            return a;
         }
     }
 }
