@@ -78,7 +78,7 @@ namespace calculate_core
         }
         public void t()
         {
-            timer.on();
+            
         }
     }
 }

@@ -33,12 +33,20 @@ namespace calculate_core
         }
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            output.Text = Cal.cal4(input.Text);
+            
         }
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
-            
+            timer t1 = new timer();
+            if (checkBox.IsChecked == true)
+            {
+                t1.on();
+            }
+            else
+            {
+                output.Text = t1.off().ToString();
+            }
         }
     }
 }
