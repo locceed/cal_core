@@ -76,5 +76,9 @@ namespace calculate_core
                 return "error";
             }
         }
+        public void t()
+        {
+            timer.on();
+        }
     }
 }
