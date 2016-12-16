@@ -525,22 +525,9 @@ namespace calculate_core
                 return "error";
             }
         }
-        static public string test(string input)
+        static public void test(string input)//测试用
         {
-            try
-            {
-                int x = 0;
-                x = input.IndexOf("|");
-                if (input.Substring(0, x).Last().ToString().IndexOfAny("+-*/".ToArray()) == -1)
-                {
-                    input = input.Substring(0, x) + "*" + input.Substring(x);
-                }
-            }
-            catch
-            {
 
-            }
-            return input;
         } 
     }
 }

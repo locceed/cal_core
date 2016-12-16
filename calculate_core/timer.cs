@@ -9,7 +9,6 @@ namespace calculate_core
     class timer
     {
         bool isend = false;
-        TimeSpan a;
         DateTime past;
         public void on()
         {
