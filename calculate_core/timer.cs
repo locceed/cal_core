@@ -7,46 +7,35 @@ using System.Threading.Tasks;
 namespace calculate_core
 {
     class timer
-    {       bool isend = false;
-            TimeSpan a;
-            DateTime past = DateTime.Now;
-        public TimeSpan t1()
-        {
-            
-            if (isend==false)
-            {
-                a = TimeSpan.Zero;
-                past = DateTime.Now;
-                isend = true;
-            }
-            else
-            {
-                a = DateTime.Now - past;
-                isend = false;
-            }
-            return a;
-        }
-        public TimeSpan on()
+    {
+        bool isend = false;
+        TimeSpan a;
+        DateTime past;
+        public void on()
         {
             if (isend == false)
             {
-                t1();
+                past = DateTime.Now;
                 isend = true;
-                return TimeSpan.Zero;
             }
-            else
-            {
-                return TimeSpan.Zero;
-            }
-            
         }
         public TimeSpan off()
         {
             if (isend == true)
             {
-                t1();
                 isend = false;
-                return a;
+                return DateTime.Now - past;
+            }
+            else
+            {
+                return TimeSpan.Zero;
+            }
+        }
+        public TimeSpan get()
+        {
+            if (isend == true)
+            { 
+                return DateTime.Now - past;
             }
             else
             {

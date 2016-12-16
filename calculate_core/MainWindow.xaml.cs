@@ -20,7 +20,7 @@ namespace calculate_core
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+        timer t1 = new timer();
         private void input_KeyUp(object sender, KeyEventArgs e)
         {
             //output.Text = other.bracket1(input.Text);
@@ -29,24 +29,16 @@ namespace calculate_core
         }
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            output.Text = Cal.test(input.Text);
+            output.Text = t1.get().ToString();
         }
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            
+            output.Text = t1.off().ToString();
         }
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
-            timer t1 = new timer();
-            if (checkBox.IsChecked == true)
-            {
-                t1.on();
-            }
-            else
-            {
-                output.Text = t1.off().ToString();
-            }
+            t1.on();
         }
     }
 }
