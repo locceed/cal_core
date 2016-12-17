@@ -29,16 +29,16 @@ namespace calculate_core
         }
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            output.Text = t1.get().ToString();
+            
         }
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            output.Text = t1.off().ToString();
+            
         }
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
-            t1.on();
+            
         }
     }
 }
