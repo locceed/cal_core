@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,33 @@ namespace calculate_core
 {
     class other
     {
+        static public ArrayList finder(string input,string find)
+        {
+            ArrayList list = new ArrayList();
+            int x = input.IndexOf(find);
+            list.Add(x);
+            int xmax = input.LastIndexOf(find);
+            while (true)
+            {
+                x = input.IndexOf(find, x + 1);
+                list.Add(x);
+                if (x == xmax)
+                {
+                    break;
+                }
+            }
+            return list;
+        }
+        static public string finder1(string input, string find)
+        {
+            string a = "";
+            ArrayList b = finder(input, find);
+            foreach(object o in b)
+            {
+                a = a + "_" + o.ToString();
+            }
+            return a;
+        }
         static public string bracket1(string input)//括号
         {
             try
@@ -50,7 +78,12 @@ namespace calculate_core
         }
         static public string abs2(string input)
         {
+            while (true)
+            {
+                ArrayList location = finder(input, "|");
 
+            }
+            
             return "";
         }
     }
