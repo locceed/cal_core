@@ -14,13 +14,18 @@ namespace calculate_core
         {
             ArrayList list = new ArrayList();
             int x = input.IndexOf(find);
+            if (x == -1)
+            {
+                list.Add(-1);
+                return list;
+            }
             list.Add(x);
             int xmax = input.LastIndexOf(find);
             while (true)
             {
                 x = input.IndexOf(find, x + 1);
                 list.Add(x);
-                if (x == xmax)
+                if (x == xmax || x == -1) 
                 {
                     break;
                 }
@@ -78,13 +83,36 @@ namespace calculate_core
         }
         static public string abs2(string input)
         {
+            int x = 0;
+            string a = "";
+            ArrayList location;
             while (true)
             {
-                ArrayList location = finder(input, "|");
-
+                location = finder(input, "|");
+                x = 0;
+                if (Convert.ToInt32(location[location.Count - 1]) == -1) 
+                {
+                    break;
+                }
+                while (true)
+                {
+                    a = input.Substring(0, Convert.ToInt32(location[x + 1]));
+                    if (a.Last().ToString().IndexOfAny("+-*/".ToArray()) == -1)
+                    {
+                        input = input.Substring(0, Convert.ToInt32(location[x])) + Cal.cal4(input.Substring(Convert.ToInt32(location[x]) + 1, Convert.ToInt32(location[x + 1]) - Convert.ToInt32(location[x]) - 1)) + input.Substring(Convert.ToInt32(location[x + 1]) + 1);
+                        break;
+                    }
+                    else
+                    {
+                        x++;
+                        if (x >= location.Count - 1) 
+                        {
+                            break;
+                        }
+                    }
+                }
             }
-            
-            return "";
+            return input;
         }
     }
 }

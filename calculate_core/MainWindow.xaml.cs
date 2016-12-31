@@ -23,7 +23,7 @@ namespace calculate_core
         timer t1 = new timer();
         private void input_KeyUp(object sender, KeyEventArgs e)
         {
-            output.Text = other.finder1(input.Text,"|");
+            output.Text = other.abs2(input.Text);
         }
         private void button_Click(object sender, RoutedEventArgs e)
         {
