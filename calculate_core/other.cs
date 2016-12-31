@@ -51,121 +51,150 @@ namespace calculate_core
         }
         static private ArrayList finder(string input, string find)//绝对值2，辅助方法
         {
-            ArrayList list = new ArrayList();
-            int x = input.IndexOf(find);
-            if (x == -1)
+            try
             {
-                list.Add(-1);
+                ArrayList list = new ArrayList();
+                int x = input.IndexOf(find);
+                if (x == -1)
+                {
+                    list.Add(-1);
+                    return list;
+                }
+                list.Add(x);
+                int xmax = input.LastIndexOf(find);
+                while (true)
+                {
+                    x = input.IndexOf(find, x + 1);
+                    list.Add(x);
+                    if (x == xmax || x == -1)
+                    {
+                        break;
+                    }
+                }
                 return list;
             }
-            list.Add(x);
-            int xmax = input.LastIndexOf(find);
-            while (true)
+            catch
             {
-                x = input.IndexOf(find, x + 1);
-                list.Add(x);
-                if (x == xmax || x == -1)
-                {
-                    break;
-                }
+                ArrayList a = new ArrayList();
+                return a;
             }
-            return list;
         }
         static public string abs2(string input)//绝对值2,完成
         {
-            int x = 0;
-            string a = "";
-            ArrayList location;
-            while (true)
+            try
             {
-                location = finder(input, "|");
-                x = 0;
-                if (Convert.ToInt32(location[location.Count - 1]) == -1) 
-                {
-                    break;
-                }
+                int x = 0;
+                string a = "";
+                ArrayList location;
                 while (true)
                 {
-                    a = input.Substring(0, Convert.ToInt32(location[x + 1]));
-                    if (a.Last().ToString().IndexOfAny("+-*/".ToArray()) == -1)
+                    location = finder(input, "|");
+                    x = 0;
+                    if (Convert.ToInt32(location[location.Count - 1]) == -1)
                     {
-                        input = input.Substring(0, Convert.ToInt32(location[x])) + Cal.cal4(input.Substring(Convert.ToInt32(location[x]) + 1, Convert.ToInt32(location[x + 1]) - Convert.ToInt32(location[x]) - 1)) + input.Substring(Convert.ToInt32(location[x + 1]) + 1);
                         break;
                     }
-                    else
+                    while (true)
                     {
-                        x++;
-                        if (x >= location.Count - 1) 
+                        a = input.Substring(0, Convert.ToInt32(location[x + 1]));
+                        if (a.Last().ToString().IndexOfAny("+-*/".ToArray()) == -1)
                         {
-                            return "error";
+                            input = input.Substring(0, Convert.ToInt32(location[x])) + Cal.cal4(input.Substring(Convert.ToInt32(location[x]) + 1, Convert.ToInt32(location[x + 1]) - Convert.ToInt32(location[x]) - 1)) + input.Substring(Convert.ToInt32(location[x + 1]) + 1);
+                            break;
+                        }
+                        else
+                        {
+                            x++;
+                            if (x >= location.Count - 1)
+                            {
+                                return "error";
+                            }
                         }
                     }
                 }
+                if (input.IndexOf("|") == -1)
+                {
+                    return input;
+                }
+                else
+                {
+                    return "error";
+                }
             }
-            if (input.IndexOf("|") == -1)
-            {
-                return input;
-            }
-            else
+            catch
             {
                 return "error";
             }
         }
-        static public string abs3(string input)
+        static public string abs3(string input)//ing
         {
 
             return "";
         }
-        static public string rannum(int digit)
+        static public string rannum(int digit)//create a random number
         {
-            Random ran = new Random();
-            string result = "";
-            while (digit >= 1)
+            try
             {
-                result = result + ran.Next(0, 10);
-                digit--;
-            }
-            return result;
-        }
-        static public string rannum(int digit,int times)
-        {
-            Random ran = new Random(); 
-            string result = "";
-            int digit_copy;
-            while (times >= 1)
-            {
-                switch (ran.Next(0, 3))
-                {
-                    case 0:
-                        {
-                            result = result + "+";
-                            break;
-                        }
-                    case 1:
-                        {
-                            result = result + "-";
-                            break;
-                        }
-                    case 2:
-                        {
-                            result = result + "*";
-                            break;
-                        }
-                    case 3:
-                        {
-                            result = result + "/";
-                            break;
-                        }
-                }
-                digit_copy = digit;
-                while (digit_copy >= 1)
+                Random ran = new Random();
+                string result = "";
+                while (digit >= 1)
                 {
                     result = result + ran.Next(0, 10);
-                    digit_copy--;
+                    digit--;
                 }
-                times--;
+                return result;
             }
-            return result.Substring(1);
+            catch
+            {
+                return "error";
+            }
+        }
+        static public string rannum(int digit, int times)//create a random formula
+        {
+            try
+            {
+                Random ran = new Random();
+                string result = "";
+                int digit_copy;
+                while (times >= 1)
+                {
+                    switch (ran.Next(0, 3))
+                    {
+                        case 0:
+                            {
+                                result = result + "+";
+                                break;
+                            }
+                        case 1:
+                            {
+                                result = result + "-";
+                                break;
+                            }
+                        case 2:
+                            {
+                                result = result + "*";
+                                break;
+                            }
+                        case 3:
+                            {
+                                result = result + "/";
+                                break;
+                            }
+                    }
+                    digit_copy = digit;
+                    while (digit_copy >= 1)
+                    {
+                        result = result + ran.Next(0, 10);
+                        digit_copy--;
+                    }
+                    times--;
+                }
+                return result.Substring(1);
+            }
+            catch
+            {
+                return "error";
+            }
         }
     }
 }
