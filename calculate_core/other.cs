@@ -10,7 +10,72 @@ namespace calculate_core
 {
     class other
     {
-        static public string bracket1(string input)//括号(包括计算)
+        static public string rannum(int digit)//create a random number
+        {
+            try
+            {
+                Random ran = new Random();
+                string result = "";
+                while (digit >= 1)
+                {
+                    result = result + ran.Next(0, 10);
+                    digit--;
+                }
+                return result;
+            }
+            catch
+            {
+                return "error";
+            }
+        }
+        static public string rannum(int digit, int times)//create a random formula
+        {
+            try
+            {
+                Random ran = new Random();
+                string result = "";
+                int digit_copy;
+                while (times >= 1)
+                {
+                    switch (ran.Next(0, 3))
+                    {
+                        case 0:
+                            {
+                                result = result + "+";
+                                break;
+                            }
+                        case 1:
+                            {
+                                result = result + "-";
+                                break;
+                            }
+                        case 2:
+                            {
+                                result = result + "*";
+                                break;
+                            }
+                        case 3:
+                            {
+                                result = result + "/";
+                                break;
+                            }
+                    }
+                    digit_copy = digit;
+                    while (digit_copy >= 1)
+                    {
+                        result = result + ran.Next(0, 10);
+                        digit_copy--;
+                    }
+                    times--;
+                }
+                return result.Substring(1);
+            }
+            catch
+            {
+                return "error";
+            }
+        }
+        static public string bracket1(string input)//括号(包括计算,所以待改进)
         {
             try
             {
@@ -126,75 +191,49 @@ namespace calculate_core
                 return "error";
             }
         }
-        static public string abs3(string input)//ing
+        static public string abs3(string input)//完成，绝对值！
         {
+            while (true)
+            {
+                ArrayList location = new ArrayList();
+                int lo_temp = -1;
+                while (true)
+                {
+                    if (lo_temp == input.LastIndexOf("|"))
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        lo_temp++;
+                    }
+                    lo_temp = input.IndexOf("|", lo_temp);
+                    location.Add(lo_temp);
+                }
+                lo_temp = 0;//重用
+                while (lo_temp <= location.Count - 1)
+                {
+                    if (input.Substring(0, Convert.ToInt32(location[lo_temp + 1])).Last().ToString().IndexOfAny("+-*/".ToArray()) == -1)
+                    {
+                        input = input.Substring(0, Convert.ToInt32(location[lo_temp])) + Cal.cal4(input.Substring(Convert.ToInt32(location[lo_temp]) + 1, Convert.ToInt32(location[lo_temp + 1]) - Convert.ToInt32(location[lo_temp]) - 1)) + input.Substring(Convert.ToInt32(location[lo_temp + 1]) + 1);
+                        break;
+                    }
+                    else
+                    {
+                        lo_temp++;
+                    }
+                    if (lo_temp > location.Count - 1)
+                    {
+                        return "error";
+                    }
+                }
+                if (input.IndexOf("|") == -1)
+                {
+                    break;
+                }
+            }
+            return input;
+        }
 
-            return "";
-        }
-        static public string rannum(int digit)//create a random number
-        {
-            try
-            {
-                Random ran = new Random();
-                string result = "";
-                while (digit >= 1)
-                {
-                    result = result + ran.Next(0, 10);
-                    digit--;
-                }
-                return result;
-            }
-            catch
-            {
-                return "error";
-            }
-        }
-        static public string rannum(int digit, int times)//create a random formula
-        {
-            try
-            {
-                Random ran = new Random();
-                string result = "";
-                int digit_copy;
-                while (times >= 1)
-                {
-                    switch (ran.Next(0, 3))
-                    {
-                        case 0:
-                            {
-                                result = result + "+";
-                                break;
-                            }
-                        case 1:
-                            {
-                                result = result + "-";
-                                break;
-                            }
-                        case 2:
-                            {
-                                result = result + "*";
-                                break;
-                            }
-                        case 3:
-                            {
-                                result = result + "/";
-                                break;
-                            }
-                    }
-                    digit_copy = digit;
-                    while (digit_copy >= 1)
-                    {
-                        result = result + ran.Next(0, 10);
-                        digit_copy--;
-                    }
-                    times--;
-                }
-                return result.Substring(1);
-            }
-            catch
-            {
-                return "error";
-            }
-        }
     }
 }

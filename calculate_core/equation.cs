@@ -8,5 +8,6 @@ namespace calculate_core
 {
     class equation
     {
+
     }
 }
