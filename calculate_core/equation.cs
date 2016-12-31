@@ -230,7 +230,7 @@ namespace calculate_core
                 return "error";
             }
         }
-        static public string two_one(string input1,string input2)//二元一次方程
+        static public string two_one(string input1,string input2)//二元一次方程（未完成）
         {
             string positive1 = input1.Substring(0, input1.IndexOf("="));
             string negative1 = input1.Substring(input1.IndexOf("=") + 1);
