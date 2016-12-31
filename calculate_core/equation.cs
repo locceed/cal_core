@@ -13,8 +13,16 @@ namespace calculate_core
         {
             try
             {
-                string positive = "+" + input.Substring(0, input.IndexOf("="));
-                string negative = "+" + input.Substring(input.IndexOf("=") + 1);
+                string positive = input.Substring(0, input.IndexOf("="));
+                string negative = input.Substring(input.IndexOf("=") + 1);
+                if (positive.First().ToString().IndexOfAny("+-*/".ToArray()) == -1) 
+                {
+                    positive = "+" + positive;
+                }
+                if (negative.First().ToString().IndexOfAny("+-*/".ToArray()) == -1)
+                {
+                    negative = "+" + negative;
+                }
                 double linear = 0;
                 double constant = 0;
                 ArrayList positivelocation = new ArrayList();
@@ -61,7 +69,7 @@ namespace calculate_core
                 foreach (object o in positivelocation)
                 {
                     temp1 = Convert.ToString(o);
-                    if (temp1.IndexOf("x") == -1)//
+                    if (temp1.IndexOf("x") == -1)
                     {
                         constant = constant + Convert.ToDouble(temp1);
                     }
@@ -73,7 +81,7 @@ namespace calculate_core
                 foreach (object o in negativelocation)
                 {
                     temp1 = Convert.ToString(o);
-                    if (temp1.IndexOf("x") == -1)//
+                    if (temp1.IndexOf("x") == -1)
                     {
                         constant = constant - Convert.ToDouble(temp1);
                     }
@@ -98,8 +106,16 @@ namespace calculate_core
         {
             try
             {
-                string positive = "+" + input.Substring(0, input.IndexOf("="));
-                string negative = "+" + input.Substring(input.IndexOf("=") + 1);
+                string positive = input.Substring(0, input.IndexOf("="));
+                string negative = input.Substring(input.IndexOf("=") + 1);
+                if (positive.First().ToString().IndexOfAny("+-*/".ToArray()) == -1)
+                {
+                    positive = "+" + positive;
+                }
+                if (negative.First().ToString().IndexOfAny("+-*/".ToArray()) == -1)
+                {
+                    negative = "+" + negative;
+                }
                 double quadratic = 0;
                 double linear = 0;
                 double constant = 0;
@@ -201,6 +217,197 @@ namespace calculate_core
             {
                 return "error";
             }
+        }
+        static public string two_one(string input1,string input2)//二元一次方程
+        {
+            string positive1 = input1.Substring(0, input1.IndexOf("="));
+            string negative1 = input1.Substring(input1.IndexOf("=") + 1);
+            if (positive1.First().ToString().IndexOfAny("+-*/".ToArray()) == -1)
+            {
+                positive1 = "+" + positive1;
+            }
+            if (negative1.First().ToString().IndexOfAny("+-*/".ToArray()) == -1)
+            {
+                negative1 = "+" + negative1;
+            }
+            double linear1x = 0;
+            double linear1y = 0;
+            double constant1 = 0;
+            ArrayList positivelocation1 = new ArrayList();
+            int temp = -1;
+            int templast = 0;
+            while (true)
+            {
+                if (temp == positive1.LastIndexOfAny("+-*/".ToArray()))
+                {
+                    positivelocation1.Add(positive1.Substring(positive1.LastIndexOfAny("+-*/".ToArray())));
+                    positivelocation1.RemoveAt(0);
+                    break;
+                }
+                else
+                {
+                    temp++;
+                }
+                temp = positive1.IndexOfAny("+-*/".ToArray(), temp);
+                positivelocation1.Add(positive1.Substring(templast, temp - templast));
+                templast = temp;
+            }
+            ArrayList negativelocation1 = new ArrayList();
+            temp = -1;
+            templast = 0;
+            while (true)
+            {
+                if (temp == negative1.LastIndexOfAny("+-*/".ToArray()))
+                {
+                    negativelocation1.Add(negative1.Substring(negative1.LastIndexOfAny("+-*/".ToArray())));
+                    negativelocation1.RemoveAt(0);
+                    break;
+                }
+                else
+                {
+                    temp++;
+                }
+                temp = negative1.IndexOfAny("+-*/".ToArray(), temp);
+                negativelocation1.Add(negative1.Substring(templast, temp - templast));
+                templast = temp;
+            }
+            //////////////////////////////////////////////////////////////////////////////////////////////////////
+            string positive2 = input2.Substring(0, input2.IndexOf("="));
+            string negative2 = input2.Substring(input2.IndexOf("=") + 1);
+            if (positive2.First().ToString().IndexOfAny("+-*/".ToArray()) == -1)
+            {
+                positive2 = "+" + positive2;
+            }
+            if (negative2.First().ToString().IndexOfAny("+-*/".ToArray()) == -1)
+            {
+                negative2 = "+" + negative2;
+            }
+            double linear2x = 0;
+            double linear2y = 0;
+            double constant2 = 0;
+            ArrayList positivelocation2 = new ArrayList();
+            temp = -1;
+            templast = 0;
+            while (true)
+            {
+                if (temp == positive2.LastIndexOfAny("+-*/".ToArray()))
+                {
+                    positivelocation2.Add(positive2.Substring(positive2.LastIndexOfAny("+-*/".ToArray())));
+                    positivelocation2.RemoveAt(0);
+                    break;
+                }
+                else
+                {
+                    temp++;
+                }
+                temp = positive2.IndexOfAny("+-*/".ToArray(), temp);
+                positivelocation2.Add(positive2.Substring(templast, temp - templast));
+                templast = temp;
+            }
+            ArrayList negativelocation2 = new ArrayList();
+            temp = -1;
+            templast = 0;
+            while (true)
+            {
+                if (temp == negative2.LastIndexOfAny("+-*/".ToArray()))
+                {
+                    negativelocation2.Add(negative2.Substring(negative2.LastIndexOfAny("+-*/".ToArray())));
+                    negativelocation2.RemoveAt(0);
+                    break;
+                }
+                else
+                {
+                    temp++;
+                }
+                temp = negative2.IndexOfAny("+-*/".ToArray(), temp);
+                negativelocation2.Add(negative2.Substring(templast, temp - templast));
+                templast = temp;
+            }
+            //////////////////////////////////////////////////////////////////////////////////
+            string temp1 = "";
+            temp = 0;
+            templast = 0;
+            foreach (object o in positivelocation1)
+            {
+                temp1 = Convert.ToString(o);
+                if (temp1.IndexOf("x") != -1)
+                {
+                    linear1x = linear1x + Convert.ToDouble(temp1.Replace("x", ""));
+                }
+                else
+                {
+                    if (temp1.IndexOf("y") != -1)
+                    {
+                        linear1y = linear1y + Convert.ToDouble(temp1.Replace("y", ""));
+                    }
+                    else
+                    {
+                        constant1 = constant1 + Convert.ToDouble(temp1);
+                    }
+                }
+            }
+            foreach (object o in negativelocation1)
+            {
+                temp1 = Convert.ToString(o);
+                if (temp1.IndexOf("x") != -1)
+                {
+                    linear1x = linear1x - Convert.ToDouble(temp1.Replace("x", ""));
+                }
+                else
+                {
+                    if (temp1.IndexOf("y") != -1)
+                    {
+                        linear1y = linear1y - Convert.ToDouble(temp1.Replace("y", ""));
+                    }
+                    else
+                    {
+                        constant1 = constant1 - Convert.ToDouble(temp1);
+                    }
+                }
+            }
+            //////////////////////////////////////////////////////////////////////////////////
+            temp1 = "";
+            temp = 0;
+            templast = 0;
+            foreach (object o in positivelocation2)
+            {
+                temp1 = Convert.ToString(o);
+                if (temp1.IndexOf("x") != -1)
+                {
+                    linear2x = linear2x + Convert.ToDouble(temp1.Replace("x", ""));
+                }
+                else
+                {
+                    if (temp1.IndexOf("y") != -1)
+                    {
+                        linear2y = linear2y + Convert.ToDouble(temp1.Replace("y", ""));
+                    }
+                    else
+                    {
+                        constant2 = constant2 + Convert.ToDouble(temp1);
+                    }
+                }
+            }
+            foreach (object o in negativelocation2)
+            {
+                temp1 = Convert.ToString(o);
+                if (temp1.IndexOf("x") != -1)
+                {
+                    linear2x = linear2x - Convert.ToDouble(temp1.Replace("x", ""));
+                }
+                else
+                {
+                    if (temp1.IndexOf("y") != -1)
+                    {
+                        linear2y = linear2y - Convert.ToDouble(temp1.Replace("y", ""));
+                    }
+                    else
+                    {
+                        constant2 = constant2 - Convert.ToDouble(temp1);
+                    }
+                }
+            }
+            return linear1x.ToString() + linear1y.ToString() + constant1.ToString() + linear2x.ToString() + linear2y.ToString() + constant2.ToString();
         }
     }
 }
