@@ -32,7 +32,7 @@ namespace calculate_core
             }
             return list;
         }
-        static public string finder1(string input, string find)
+        static public string finder1(string input, string find)//用于其他方法
         {
             string a = "";
             ArrayList b = finder(input, find);
@@ -81,7 +81,7 @@ namespace calculate_core
                 return "error";
             }
         }
-        static public string abs2(string input)
+        static public string abs2(string input)//绝对值2,完成
         {
             int x = 0;
             string a = "";
@@ -107,12 +107,24 @@ namespace calculate_core
                         x++;
                         if (x >= location.Count - 1) 
                         {
-                            break;
+                            return "error";
                         }
                     }
                 }
             }
-            return input;
+            if (input.IndexOf("|") == -1)
+            {
+                return input;
+            }
+            else
+            {
+                return "error";
+            }
+        }
+        static public string abs3(string input)
+        {
+
+            return "";
         }
     }
 }
