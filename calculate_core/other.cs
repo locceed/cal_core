@@ -10,6 +10,11 @@ namespace calculate_core
 {
     class other
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rannum"></param>
+        /// <returns></returns>
         static public string rannum(int digit)//create a random number
         {
             try
@@ -75,26 +80,11 @@ namespace calculate_core
                 return "error";
             }
         }
-        static public string bracket1(string input)//括号(包括计算,所以待改进)
-        {
-            try
-            {
-                input = "(" + input + ")";
-                while (true)
-                {
-                    if (input.IndexOf(")") == -1)
-                    {
-                        break;
-                    }
-                    input = input.Substring(0, input.Substring(0, input.IndexOf(")")).LastIndexOf("(")) + Cal.cal4(input.Substring(input.Substring(0, input.IndexOf(")")).LastIndexOf("(") + 1, input.IndexOf(")") - input.Substring(0, input.IndexOf(")")).LastIndexOf("(") - 1)) + input.Substring(input.IndexOf(")") + 1);
-                }
-                return input;
-            }
-            catch (Exception e)
-            {
-                return "error";
-            }
-        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="abs"></param>
+        /// <returns></returns>
         static public string abs1(string input)//绝对值（有缺陷）
         {
             try
@@ -193,47 +183,78 @@ namespace calculate_core
         }
         static public string abs3(string input)//完成，绝对值！
         {
-            while (true)
+            try
             {
-                ArrayList location = new ArrayList();
-                int lo_temp = -1;
                 while (true)
                 {
-                    if (lo_temp == input.LastIndexOf("|"))
+                    ArrayList location = new ArrayList();
+                    int lo_temp = -1;
+                    while (true)
+                    {
+                        if (lo_temp == input.LastIndexOf("|"))
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            lo_temp++;
+                        }
+                        lo_temp = input.IndexOf("|", lo_temp);
+                        location.Add(lo_temp);
+                    }
+                    lo_temp = 0;//重用
+                    while (lo_temp <= location.Count - 1)
+                    {
+                        if (input.Substring(0, Convert.ToInt32(location[lo_temp + 1])).Last().ToString().IndexOfAny("+-*/".ToArray()) == -1)
+                        {
+                            input = input.Substring(0, Convert.ToInt32(location[lo_temp])) + Cal.cal4(input.Substring(Convert.ToInt32(location[lo_temp]) + 1, Convert.ToInt32(location[lo_temp + 1]) - Convert.ToInt32(location[lo_temp]) - 1)) + input.Substring(Convert.ToInt32(location[lo_temp + 1]) + 1);
+                            break;
+                        }
+                        else
+                        {
+                            lo_temp++;
+                        }
+                        if (lo_temp > location.Count - 1)
+                        {
+                            return "error";
+                        }
+                    }
+                    if (input.IndexOf("|") == -1)
                     {
                         break;
                     }
-                    else
-                    {
-                        lo_temp++;
-                    }
-                    lo_temp = input.IndexOf("|", lo_temp);
-                    location.Add(lo_temp);
                 }
-                lo_temp = 0;//重用
-                while (lo_temp <= location.Count - 1)
-                {
-                    if (input.Substring(0, Convert.ToInt32(location[lo_temp + 1])).Last().ToString().IndexOfAny("+-*/".ToArray()) == -1)
-                    {
-                        input = input.Substring(0, Convert.ToInt32(location[lo_temp])) + Cal.cal4(input.Substring(Convert.ToInt32(location[lo_temp]) + 1, Convert.ToInt32(location[lo_temp + 1]) - Convert.ToInt32(location[lo_temp]) - 1)) + input.Substring(Convert.ToInt32(location[lo_temp + 1]) + 1);
-                        break;
-                    }
-                    else
-                    {
-                        lo_temp++;
-                    }
-                    if (lo_temp > location.Count - 1)
-                    {
-                        return "error";
-                    }
-                }
-                if (input.IndexOf("|") == -1)
-                {
-                    break;
-                }
+                return input;
             }
-            return input;
+            catch
+            {
+                return "error";
+            }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bracket"></param>
+        /// <returns></returns>
+        static public string bracket1(string input)//括号(包括计算,所以待改进)
+        {
+            try
+            {
+                input = "(" + input + ")";
+                while (true)
+                {
+                    if (input.IndexOf(")") == -1)
+                    {
+                        break;
+                    }
+                    input = input.Substring(0, input.Substring(0, input.IndexOf(")")).LastIndexOf("(")) + Cal.cal4(input.Substring(input.Substring(0, input.IndexOf(")")).LastIndexOf("(") + 1, input.IndexOf(")") - input.Substring(0, input.IndexOf(")")).LastIndexOf("(") - 1)) + input.Substring(input.IndexOf(")") + 1);
+                }
+                return input;
+            }
+            catch (Exception e)
+            {
+                return "error";
+            }
+        }
     }
 }
