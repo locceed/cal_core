@@ -10,38 +10,6 @@ namespace calculate_core
 {
     class other
     {
-        static public ArrayList finder(string input,string find)
-        {
-            ArrayList list = new ArrayList();
-            int x = input.IndexOf(find);
-            if (x == -1)
-            {
-                list.Add(-1);
-                return list;
-            }
-            list.Add(x);
-            int xmax = input.LastIndexOf(find);
-            while (true)
-            {
-                x = input.IndexOf(find, x + 1);
-                list.Add(x);
-                if (x == xmax || x == -1) 
-                {
-                    break;
-                }
-            }
-            return list;
-        }
-        static public string finder1(string input, string find)//用于其他方法
-        {
-            string a = "";
-            ArrayList b = finder(input, find);
-            foreach(object o in b)
-            {
-                a = a + "_" + o.ToString();
-            }
-            return a;
-        }
         static public string bracket1(string input)//括号
         {
             try
@@ -80,6 +48,28 @@ namespace calculate_core
             {
                 return "error";
             }
+        }
+        static private ArrayList finder(string input, string find)//绝对值2，辅助方法
+        {
+            ArrayList list = new ArrayList();
+            int x = input.IndexOf(find);
+            if (x == -1)
+            {
+                list.Add(-1);
+                return list;
+            }
+            list.Add(x);
+            int xmax = input.LastIndexOf(find);
+            while (true)
+            {
+                x = input.IndexOf(find, x + 1);
+                list.Add(x);
+                if (x == xmax || x == -1)
+                {
+                    break;
+                }
+            }
+            return list;
         }
         static public string abs2(string input)//绝对值2,完成
         {
