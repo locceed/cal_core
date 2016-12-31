@@ -23,6 +23,10 @@ namespace calculate_core
                 {
                     negative = "+" + negative;
                 }
+                positive = positive.Replace("+x", "+1x");
+                positive = positive.Replace("-x", "-1x");
+                negative = negative.Replace("+x", "+1x");
+                negative = negative.Replace("-x", "-1x");
                 double linear = 0;
                 double constant = 0;
                 ArrayList positivelocation = new ArrayList();
@@ -116,6 +120,14 @@ namespace calculate_core
                 {
                     negative = "+" + negative;
                 }
+                positive = positive.Replace("+x^x", "+1x^x");
+                positive = positive.Replace("-x^x", "-1x^x");
+                negative = negative.Replace("+x^x", "+1x^x");
+                negative = negative.Replace("-x^x", "-1x^x");
+                positive = positive.Replace("+x", "+1x");
+                positive = positive.Replace("-x", "-1x");
+                negative = negative.Replace("+x", "+1x");
+                negative = negative.Replace("-x", "-1x");
                 double quadratic = 0;
                 double linear = 0;
                 double constant = 0;
@@ -230,6 +242,10 @@ namespace calculate_core
             {
                 negative1 = "+" + negative1;
             }
+            positive1 = positive1.Replace("+x", "+1x");
+            positive1 = positive1.Replace("-x", "-1x");
+            negative1 = negative1.Replace("+x", "+1x");
+            negative1 = negative1.Replace("-x", "-1x");
             double linear1x = 0;
             double linear1y = 0;
             double constant1 = 0;
@@ -282,6 +298,10 @@ namespace calculate_core
             {
                 negative2 = "+" + negative2;
             }
+            positive2 = positive2.Replace("+x", "+1x");
+            positive2 = positive2.Replace("-x", "-1x");
+            negative2 = negative2.Replace("+x", "+1x");
+            negative2 = negative2.Replace("-x", "-1x");
             double linear2x = 0;
             double linear2y = 0;
             double constant2 = 0;
