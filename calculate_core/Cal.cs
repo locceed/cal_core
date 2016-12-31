@@ -10,6 +10,10 @@ namespace calculate_core
 {
     class Cal
     {
+        static public string docal(string input)
+        {
+            return other.bracket1(other.abs2(input));
+        } 
         static public string cal1(string input)//最原始
         {
             try

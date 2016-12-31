@@ -36,7 +36,8 @@ namespace calculate_core
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
-            
+            input.Text = other.rannum(1,1);
+            output.Text = Cal.docal(input.Text);
         }
     }
 }

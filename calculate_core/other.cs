@@ -10,7 +10,7 @@ namespace calculate_core
 {
     class other
     {
-        static public string bracket1(string input)//括号
+        static public string bracket1(string input)//括号(包括计算)
         {
             try
             {
@@ -115,6 +115,57 @@ namespace calculate_core
         {
 
             return "";
+        }
+        static public string rannum(int digit)
+        {
+            Random ran = new Random();
+            string result = "";
+            while (digit >= 1)
+            {
+                result = result + ran.Next(0, 10);
+                digit--;
+            }
+            return result;
+        }
+        static public string rannum(int digit,int times)
+        {
+            Random ran = new Random(); 
+            string result = "";
+            int digit_copy;
+            while (times >= 1)
+            {
+                switch (ran.Next(0, 3))
+                {
+                    case 0:
+                        {
+                            result = result + "+";
+                            break;
+                        }
+                    case 1:
+                        {
+                            result = result + "-";
+                            break;
+                        }
+                    case 2:
+                        {
+                            result = result + "*";
+                            break;
+                        }
+                    case 3:
+                        {
+                            result = result + "/";
+                            break;
+                        }
+                }
+                digit_copy = digit;
+                while (digit_copy >= 1)
+                {
+                    result = result + ran.Next(0, 10);
+                    digit_copy--;
+                }
+                times--;
+            }
+            return result.Substring(1);
         }
     }
 }
