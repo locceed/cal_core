@@ -56,6 +56,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Cal2.cs" />
     <Compile Include="equation.cs" />
     <Compile Include="newest.cs" />
     <Compile Include="timer.cs" />

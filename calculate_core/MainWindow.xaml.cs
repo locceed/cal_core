@@ -32,7 +32,7 @@ namespace calculate_core
         }
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            
+            output.Text = new Cal2(input.Text).
         }
 
         private void button2_Click(object sender, RoutedEventArgs e)
