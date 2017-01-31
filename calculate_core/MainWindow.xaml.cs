@@ -23,16 +23,16 @@ namespace calculate_core
         timer t1 = new timer();
         private void input_KeyUp(object sender, KeyEventArgs e)
         {
-            //output.Text = equation.one_one(input.Text);
-            output.Text = equation.two_one(input.Text.Substring(0, input.Text.IndexOf("&")), input.Text.Substring(input.Text.IndexOf("&") + 1));
+            output.Text = equation.one_one(input.Text);
         }
         private void button_Click(object sender, RoutedEventArgs e)
         {
+            
             output.Text = equation.two_one(input.Text.Substring(0, input.Text.IndexOf("&")), input.Text.Substring(input.Text.IndexOf("&") + 1));
         }
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            output.Text = new Cal2(input.Text).
+            output.Text = new Cal2(input.Text).value();
         }
 
         private void button2_Click(object sender, RoutedEventArgs e)

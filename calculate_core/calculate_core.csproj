@@ -59,6 +59,7 @@
     <Compile Include="Cal2.cs" />
     <Compile Include="equation.cs" />
     <Compile Include="newest.cs" />
+    <Compile Include="num.cs" />
     <Compile Include="timer.cs" />
     <Compile Include="timer_test.xaml.cs">
       <DependentUpon>timer_test.xaml</DependentUpon>

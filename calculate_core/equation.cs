@@ -443,5 +443,6 @@ namespace calculate_core
                 return "error";
             }
         }
+
     }
 }

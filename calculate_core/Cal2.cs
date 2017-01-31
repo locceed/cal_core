@@ -9,104 +9,167 @@ namespace calculate_core
 {
     class Cal2
     {
-        private string result = "";
-        public Cal2(string input)
+        bool not_a_formula = false;
+        string formula = "";
+        string result = "";
+        ArrayList level_1 = new ArrayList();
+        ArrayList level_2 = new ArrayList();
+
+        public Cal2(string input)//构造函数
         {
-            try
+            formula = input;
+            if (formula.First().ToString().IndexOfAny("*/".ToArray()) != -1)//规范格式
             {
-                if (input.First().ToString().IndexOfAny("+-".ToArray()) == -1)//统一格式
+                formula = "1*" + formula;
+            }
+            else if (formula.First().ToString().IndexOfAny("1234567890".ToArray()) != -1)
+            {
+                formula = "+" + formula;
+            }
+            if (formula.IndexOfAny("+-*/1234567890".ToArray()) != -1)//意料外的字符
+            {
+                not_a_formula = true;
+            }
+        }
+        private string add(string num1, string num2)
+        {
+            return (Convert.ToDouble(num1) + Convert.ToDouble(num2)).ToString();
+        }
+        private string minus(string num1, string num2)
+        {
+            return (Convert.ToDouble(num1) - Convert.ToDouble(num2)).ToString();
+        }
+        private string Multiply(string num1, string num2)
+        {
+            return (Convert.ToDouble(num1) * Convert.ToDouble(num2)).ToString();
+        }
+        private string divide(string num1, string num2)
+        {
+            if (num2 == "0")
+            {
+                return double.PositiveInfinity.ToString();
+            }
+            return (Convert.ToDouble(num1) / Convert.ToDouble(num2)).ToString();
+        }
+        private void lvl1()//"+","-";except"*+""*-""/+""/-"
+        {
+            bool condition1 = true;
+            foreach (char each in formula.ToArray())
+            {
+                if (each.ToString() == "+" && condition1 == true)
                 {
-                    input = "+" + input;
+                    level_1.Add(each);
+                    condition1 = true;
                 }
-                ArrayList primary = new ArrayList();
-                int x = 0;
-                decimal q = 0;
-                primary.Add(" ");
-                while (true)//加减分割
+                else if (each.ToString() == "-" && condition1 == true)
                 {
-                    x = input.Substring(1).IndexOfAny("+-".ToArray());
-                    if (x == -1)
+                    level_1.Add(each);
+                    condition1 = true;
+                }
+                else
+                {
+                    condition1 = true;
+                    if (each.ToString().IndexOfAny("*/".ToArray()) != -1)
                     {
-                        if (primary[primary.Count - 1].ToString().Last().ToString().IndexOfAny("*/".ToArray()) == 0)
-                        {
-                            primary[primary.Count - 1] = primary[primary.Count - 1] + input;
-                        }
-                        else
-                        {
-                            primary.Add(input);
-                        }
-                        break;
+                        condition1 = false;
+                    }
+                    level_1[level_1.Count - 1] += each.ToString();
+                }
+            }
+        }
+        private void lvl2()//"*""/"
+        {
+            foreach (object each1 in level_1)
+            {
+                ArrayList temp = new ArrayList();
+                foreach (char each in each1.ToString().ToArray())
+                {
+                    if (each.ToString() == "+")
+                    {
+                        temp.Add("");
+                    }
+                    else if (each.ToString() == "-")
+                    {
+                        temp.Add("");
+                    }
+                    if (each.ToString() == "*")
+                    {
+                        temp.Add(each);
+                    }
+                    else if (each.ToString() == "/")
+                    {
+                        temp.Add(each);
                     }
                     else
                     {
-                        x = x + 1;
-                        if (primary[primary.Count - 1].ToString().Last().ToString().IndexOfAny("*/".ToArray()) == 0)
-                        {
-                            primary[primary.Count - 1] = primary[primary.Count - 1] + input.Substring(0, x);
-                        }
-                        else
-                        {
-                            primary.Add(input.Substring(0, x));
-                        }
+                        temp[temp.Count - 1] += each.ToString();
                     }
-                    input = input.Substring(x);
                 }
-                primary.RemoveAt(0);
-                ArrayList secondary = new ArrayList();
-                ArrayList results = new ArrayList();
-                x = 0;//变量重用
-                input = "";
-                foreach (string a in primary)//分割内乘除运算
+                level_2.Add(temp);
+            }
+        }
+        private void cal()
+        {
+            string temp = "0";
+            foreach (ArrayList each1 in level_2)
+            {
+                string temp1 = "0";
+                foreach (object each in each1)
                 {
-                    input = "*" + a;//乘除分割
-                    while (true)
+                    switch (each.ToString().First().ToString())
                     {
-                        x = input.Substring(1).IndexOfAny("*/".ToArray());
-                        if (x == -1)
+                        case "+":
+                            {
+                                temp1 = add(temp1.ToString(), each.ToString().Substring(1));
+                                break;
+                            }
+                        case "-":
+                            {
+                                temp1 = minus(temp1.ToString(), each.ToString().Substring(1));
+                                break;
+                            }
+                        case "*":
+                            {
+                                temp1 = Multiply(temp1.ToString(), each.ToString().Substring(1));
+                                break;
+                            }
+                        case "/":
+                            {
+                                temp1 = divide(temp1.ToString(), each.ToString().Substring(1));
+                                break;
+                            }
+                    }
+                }
+                if (temp1.First().ToString() != "-")
+                {
+                    temp1 = "+" + temp1;
+                }
+                switch (temp1.ToString().First().ToString())
+                {
+                    case "+":
                         {
-                            secondary.Add(input);
+                            temp = add(temp.ToString(), temp1.ToString().Substring(1));
                             break;
                         }
-                        else
+                    case "-":
                         {
-                            x = x + 1;
-                            secondary.Add(input.Substring(0, x));
+                            temp = minus(temp.ToString(), temp1.ToString().Substring(1));
+                            break;
                         }
-                        input = input.Substring(x);
-                    }
-                    q = 1;
-                    foreach (string b in secondary)//乘除运算
-                    {
-                        switch (b.First().ToString())
-                        {
-                            case "*":
-                                {
-                                    q = q * Convert.ToDecimal(b.Substring(1));
-                                    break;
-                                }
-                            case "/":
-                                {
-                                    q = q / Convert.ToDecimal(b.Substring(1));
-                                    break;
-                                }
-                        }
-                    }
-                    results.Add(q);
-                    x = 0;//下一轮的初始化
-                    input = "";
-                    secondary.Clear();
                 }
-                q = 0;//变量重用
-                foreach (decimal a in results)
-                {
-                    q = q + a;
-                }
-                result = q.ToString();
             }
-            catch (Exception ex)
-            {
-                result = "error";
-            }
+            result = temp;
+        }
+        private void start()
+        {
+            lvl1();
+            lvl2();
+            cal();
+        }
+        public string getresult()
+        {
+            start();
+            return result;
         }
     }
 }

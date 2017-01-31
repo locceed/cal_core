@@ -431,7 +431,7 @@ namespace calculate_core
                 return "error";
             }
         }
-        static public string cal4(string input)//使用ArrayList
+        static public string cal4(string input)//使用ArrayList,精确度比5高，速度比5快
         {
             try
             {
@@ -524,14 +524,96 @@ namespace calculate_core
                 }
                 return q.ToString();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return "error";
             }
         }
-        static public void test(string input)//测试用
+        static public string cal5(string input)//新思路，简化了代码，错误更少
         {
-
-        } 
+            if (input.First().ToString().IndexOfAny("+-".ToArray()) == -1)//统一格式
+            {
+                input = "+" + input;
+            }
+            ArrayList temp = new ArrayList();
+            foreach (char each in input.ToArray())//通过分析每个字符来分组:  "+","-"  except"*+""*-""/+""/-"
+            {
+                bool condition1 = true;
+                if (condition1 == false)
+                {
+                    condition1 = true;
+                    temp[temp.Count - 1] += each.ToString();
+                }
+                else
+                {
+                    if (each.ToString().IndexOfAny("+-".ToArray()) != -1)
+                    {
+                        temp.Add(each);
+                    }
+                    else
+                    {
+                        if (each.ToString().IndexOfAny("*/".ToArray()) != -1)
+                        {
+                            condition1 = false;
+                        }
+                        temp[temp.Count - 1] += each.ToString();
+                    }
+                }
+            }
+            ArrayList final = new ArrayList();
+            foreach (object each in temp)//通过分析每个字符来分组:  "+","-","*","/"
+            {
+                ArrayList temp1 = new ArrayList();
+                foreach (char each1 in each.ToString().ToArray())
+                {
+                    if (each1.ToString().IndexOfAny("+-*/".ToArray()) != -1)
+                    {
+                        temp1.Add(each1);
+                    }
+                    else
+                    {
+                        temp1[temp1.Count - 1] += each1.ToString();
+                    }
+                }
+                final.Add(temp1);
+            }
+            double result = 0;
+            foreach (ArrayList each in final)//运算部分,遍历所有元素
+            {
+                double result_part = 0;
+                foreach (object each1 in each)
+                {
+                    switch (each1.ToString().First().ToString())
+                    {
+                        case "+":
+                            {
+                                result_part = result_part + Convert.ToDouble(each1.ToString().Substring(1));
+                                break;
+                            }
+                        case "-":
+                            {
+                                result_part = result_part - Convert.ToDouble(each1.ToString().Substring(1));
+                                break;
+                            }
+                        case "*":
+                            {
+                                result_part = result_part * Convert.ToDouble(each1.ToString().Substring(1));
+                                break;
+                            }
+                        case "/":
+                            {
+                                if (Convert.ToDouble(each1.ToString().Substring(1)) == 0)
+                                {
+                                    result_part = double.PositiveInfinity;
+                                }
+                                result_part = result_part / Convert.ToDouble(each1.ToString().Substring(1));
+                                break;
+                            }
+                    }
+                }
+                result = result + result_part;
+            }
+            return result.ToString();
+        }
     }
 }
